@@ -1,0 +1,67 @@
+.dashboard-cls {
+    flex: 1;
+}
+
+.card-col{
+    margin:2px;
+
+}
+.card-header {
+    display: flex;
+    height: 100%;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    text-decoration: underline;
+
+}
+
+.profile-image {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    margin-left: 30px;
+}
+
+.bg-light-pink {
+    background-color: rgb(226, 143, 155);
+}
+
+.bg-light-green {
+    background-color: rgb(159, 227, 191);
+}
+
+.bg-light-yellow {
+    background-color: rgb(194, 214, 142);
+}
+
+.form-controlcls {
+    background-color: rgb(237, 207, 212);
+    width: 60%;
+}
+.bg-white-pink {
+    background-color: rgb(237, 207, 212);
+    width: 60%;
+}
+.bg-white-green {
+    background-color: rgb(205, 227, 215);
+    width: 60%;
+}
+
+.bg-white-yellow {
+    background-color: rgb(228, 237, 205);
+    width: 60%;
+}
+
+.form-labelcls {
+    /* background-color: blue; */
+    width: 40%;
+}
+
+.form-groupcls {
+    display: flex;
+    /* background-color:  rgb(219, 124, 138); */
+    align-items: center;
+    margin: 0px;
+}

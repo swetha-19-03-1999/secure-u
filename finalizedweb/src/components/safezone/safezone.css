@@ -1,0 +1,57 @@
+
+.secure-zone-main{
+    /* background-color: blue; */
+    flex:1;
+    display: flex;
+    flex-direction: column;
+}
+.secure-zone-middle-div{
+    flex:1;
+    display: flex;
+    flex-wrap: wrap;
+}
+.secure-zone-images{
+    width:100%;
+    margin:10px;
+    height:200px;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Adjust height as needed */
+    margin:10px;
+  }
+  
+  .secure-zone-images {
+    width: 100%;
+    height: 300px;
+    margin:10px;
+    object-fit: cover; 
+  }
+  
+  .image-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the title */
+    color: white; /* Adjust text color for visibility */
+    background-color: rgba(46, 46, 46, 0.5); /* Optional: Add a semi-transparent background */
+    padding: 10px;
+  }
+  .delete-button {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    background-color: rgb(228, 47, 47);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.image-container:hover .delete-button {
+    display: block;
+}

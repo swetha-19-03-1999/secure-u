@@ -1,0 +1,65 @@
+.personal-component-div{
+    background-color: #ffffff;
+    flex: 1;
+}
+.skyblue-bg{
+    background-color: #3fb6d3;
+}
+.bg3{
+    background-color: #3b9ab2;
+}
+.grey-bg{
+    background-color: #d9d9d9;
+}
+.bg1{
+    background-color: #ffffff;
+}
+.bg2{
+    background-color: #7b959c;
+}
+
+.page-div{
+   padding:24px;
+    width:100%;
+    font-size: 24px;
+}
+
+.text1{
+    color: #3fb6d3;
+}
+.text2{
+    color: #3b9ab2;
+}
+.black-text{
+    color: black;
+}
+.text4{
+    color: #197188;
+}
+.form-label{
+    
+    font-weight: 700;
+}
+.setting-form{
+    max-width: 700px;
+   
+}
+.form-group{
+    width:100%;
+}
+.yourphoto{
+    flex:1;
+}
+
+.plain-text{
+    font-weight: 400 !important;
+}
+
+.update-btn{
+    background-color: transparent;
+    border: none;
+    font-weight: 600 !important;
+}
+.update-btn:hover{
+    background-color: #3fb6d3 !important;
+}

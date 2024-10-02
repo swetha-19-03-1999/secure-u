@@ -1,0 +1,30 @@
+
+.cont{
+    background-color:#D9D9D9;
+  }
+  Form{
+    background-color: white;
+    
+    
+  }
+  .linediv{
+    display: flex;
+    flex-direction: row;
+  }
+  .lineone{
+    width: 50%;
+  }
+  .linetwo{
+    width: 50%;
+    
+    text-align: center;
+  }
+
+  a{
+    color: #3FB6D3;
+    text-decoration: none;
+  }
+.butt{
+    background-color: #3FB6D3;
+    border: #3FB6D3;
+}

@@ -1,0 +1,143 @@
+.skyblue-bg{
+    background-color: #3fb6d3;
+}
+.bg3{
+    background-color: #3b9ab2;
+}
+.grey-bg{
+    background-color: #d9d9d9;
+}
+.bg1{
+    background-color: #ffffff;
+}
+.bg2{
+    background-color: #7b959c;
+}
+
+.page-div{
+   padding:24px;
+    width:100%;
+    font-size: 24px;
+}
+
+.text1{
+    color: #3fb6d3;
+    font-weight: 800;
+}
+.text2{
+    color: #3b9ab2;
+    font-weight: 800;
+}
+.black-text{
+    color: black;
+    font-weight: 800;
+}
+.text4{
+    color: #197188;
+}
+
+.paddingcls{
+    margin:20px;
+}
+.news-home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.add-post-cntnr{
+    padding:20px 0px 0px 20px;
+    margin:20px 0px 0px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.add-post-btn{
+/* width:100%; */
+/* flex: 1; */
+color:red;
+background-color: rgb(214, 214, 214);
+border: 1px solid black;
+border-radius: 20px;
+padding:20px;
+margin:0px 0px 0px 10px;
+font-weight:bold;
+color:Black;
+
+}
+.user_avatar{
+    background-color: #3fb6d3;
+    color:white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:20px;
+    margin:0px;
+    border-radius: 50%;
+    height: 50px;
+    width:50px;
+}
+.add-post-btn{
+
+    color: #3b9ab2;
+    
+    }
+.add-post-btn:hover{
+    color:#ffffff;
+    background-color: #3b9ab2;
+}
+.flex-1{
+    flex:1;
+}
+
+.news-contaoner-center{
+    justify-content: center;
+}
+.modal-cls{
+    overflow-y: auto;
+    max-height:90vh;
+    position: fixed;
+    top: 50px;
+   
+}
+.add-post-header{
+    display: flex;
+    align-items: center;
+    text-align: center;
+  
+}
+.modal-container{
+
+    max-height:90vh;
+}
+.update-btn{
+    background-color: transparent;
+    border: none;
+    font-weight: 600 !important;
+}
+.update-btn:hover{
+    background-color: #3fb6d3 !important;
+}
+
+.text1{
+    color: #3fb6d3;
+}
+.text2{
+    color: #3b9ab2;
+}
+.black-text{
+    color: black;
+}
+.empty-content-cls{
+display: flex;
+flex-grow: 1;
+flex: 1;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+.empty-image{
+    width:200px;
+    /* height:100px; */
+}

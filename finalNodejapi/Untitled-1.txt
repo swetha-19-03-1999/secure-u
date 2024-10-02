@@ -1,0 +1,1 @@
+SELECT * FROM `users` INNER JOIN securityalerts ON users.user_id=securityalerts.user_id WHERE users.user_id=12;

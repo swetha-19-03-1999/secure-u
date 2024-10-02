@@ -1,0 +1,75 @@
+/* .settingsoption1{
+    order: 1;
+}
+.settingsoption2{
+    order: 1;
+}
+@media screen and (max-width: 480px) {
+    .settingsoption1{
+        order: 2;
+    }
+  }
+
+  @media screen and (min-width: 480px) {
+    .settingsoption1{
+        order: 1;
+    }
+  } */
+
+  .form-bgh{
+    border:2px solid black;
+    border-radius:20px;
+    margin:30px;
+    padding:40px;
+    backdrop-filter: blur(28px);
+  
+  }
+
+  /* Security application CSS starts here */
+ .profile-head{
+  font-size: 24px;
+  color:black;
+ }
+  .profile-div{
+    flex:1;
+    /* background-color: red; */
+    height:200px;
+  }
+  .main-profile{
+    /* background-color: red; */
+    flex: 1;
+    padding:0px;
+  }
+  .side-profile{
+    /* background-color: green; */
+    max-width: 250px;
+    border-right: 1px solid ;
+   
+    
+  }
+  .main-page{
+    /* background-color: blue; */
+    flex-grow: 1;
+}
+
+.profile-component-div{
+  background-color:#ffffff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+}
+.profile-cntnr{
+flex: 1;
+display: flex;
+flex-direction: column;
+}
+.part2{
+ 
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.avatar-cls{
+  width:100px;
+}

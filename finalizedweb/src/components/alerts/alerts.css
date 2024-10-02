@@ -1,0 +1,10 @@
+.navigate-btn{
+    background-color: transparent;
+    /* border: none; */
+    color: #3fb6d3;
+    border: 1px solid  #3fb6d3;
+    font-weight: 600 !important;
+}
+.navigate-btn:hover{
+    background-color: #3fb6d3 !important;
+}
