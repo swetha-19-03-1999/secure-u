@@ -10,7 +10,7 @@ import ReportIncidentMiniCard from "./cards/reportmini";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -189,17 +189,7 @@ const DashBoardComponent = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={modalStyle}>
-                    {/* <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                    >
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor
-                        ligula.
-                    </Typography> */}
+                    <div style={{ margin: 10, float: 'right', cursor: 'pointer' }}><CloseIcon onClick={() => setShowModal(false)} /></div>
                     {selectedAlert?.incident_mode == 0 && (
                         <ReportIncident
                             key={selectedAlert.id}

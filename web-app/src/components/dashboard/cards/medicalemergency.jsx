@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { stringAvatar } from "../../../helper";
+import AvatarImg from "../../profile/Avatar";
 
 const MedicalEmergency = (props) => {
     const { alertDetails, onAlertAcceptClick } = props;
@@ -71,17 +72,7 @@ const MedicalEmergency = (props) => {
                     >
                         Medical Emergency
                     </Typography>
-                    {
-                        user_profile_pic ? 
-                        <Avatar
-                            className="profile-image"
-                            alt={"profile images"}
-                            src={"http://localhost:3001/" + user_profile_pic}
-                            // sx={{ width: 56, height: 56 }}
-                        />
-                        :
-                        <Avatar {...stringAvatar(user_name)} />
-                    }
+                    <AvatarImg image={user_profile_pic} name={user_name} />
                 </Col>
                 <Col>
                     <Form className="bg-light-green">
