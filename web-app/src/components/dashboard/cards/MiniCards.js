@@ -40,7 +40,7 @@ const incident = getIncidentDetails(incident_mode);
 
 
     return (
-        <Card sx={{ maxWidth: 345, margin: "10px", padding: 0, background: incident.color }}>
+        <Card sx={{ maxWidth: 320, margin: "10px", padding: 0, background: incident.color, position: 'relative !important' }}>
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -90,7 +90,7 @@ const incident = getIncidentDetails(incident_mode);
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" onClick={() => onViewClick(alertDetails)}>
+                <Button style={{position: "absolute", bottom: 0, right: 10}} size="medium" color="primary" onClick={() => onViewClick(alertDetails)}>
                     View
                 </Button>
             </CardActions>

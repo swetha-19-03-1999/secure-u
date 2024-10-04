@@ -15,7 +15,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import ToastMessageComponent from "../toast/toastmessage";
-import MiniCards from "./cards/MiniCards";
+import MiniCards from "./cards/MiniCards2";
 
 const apiSatusCodes = {
     LOADING: "loading",
