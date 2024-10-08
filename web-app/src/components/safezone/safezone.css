@@ -42,7 +42,7 @@
   .delete-button {
     display: none;
     position: absolute;
-    top: 10px;
+    top: 20px;
     right: 0px;
     background-color: rgb(228, 47, 47);
     color: white;
