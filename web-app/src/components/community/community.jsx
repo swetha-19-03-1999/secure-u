@@ -17,21 +17,29 @@ const CommunityPage = () => {
     }
     
     useEffect(() => {
-
-        axios.get("http://localhost:3001/news").then((res) => {
-
-            setNewsList(res.data)
-        }).catch(e => {
-            console.log(e)
-        })
+        const fetchNews = () => {
+            axios.get("http://localhost:3001/news").then((res) => {
+    
+                setNewsList(res.data)
+            }).catch(e => {
+                console.log(e)
+            })
+        };
 
         axios.get(`http://localhost:3001/admin-users/${localStorage.getItem("userid")}`).then((res) => {
 
             setUserName(res.data.user_name)
         }).catch((e) => {
             console.log(e)
-        })
+        });
 
+        fetchNews();
+
+        const intervalId = setInterval(fetchNews, 10000);
+
+        return () => {
+            clearInterval(intervalId);
+        }
     }, [updateUI])
 
     return (
