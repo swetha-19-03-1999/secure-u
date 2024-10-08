@@ -143,6 +143,10 @@ const DashBoardComponent = () => {
         };
 
         const intervalId = setInterval(fetchAlerts, 10000); // Fetch every 10 seconds
+
+        return () => {
+            clearInterval(intervalId);
+        }
     }, [updateUi]);
 
     return (
