@@ -16,6 +16,7 @@ import DashBoardComponent from './components/dashboard/dashboard';
 import AlertsComponent from './components/alerts/alerts';
 import SafeZoneDetails from './components/safezonedetails/safezone';
 import AddNewSafeZone from './components/safezonedetails/addSafeZone';
+import MyProfileAlerts from './components/profile/myprofilealerts';
 function App() {
   return (
     <BrowserRouter>
@@ -26,7 +27,9 @@ function App() {
    <Route path='' element={<DashBoardComponent/>}></Route>
     <Route path='home' element={<DashBoardComponent/>}></Route>
     <Route path='alerts' element={<AlertsComponent />}></Route>
-  <Route path='profile' element={<ProfileComponent />}></Route>
+  <Route path='myalerts' element={<MyProfileAlerts />}></Route>
+  {/* <Route path='profile' element={<ProfileComponent />}></Route> */}
+  <Route path='profile' element={<ProfileSettingsComponent />}></Route>
   <Route path='wellbeing' element={<WellBeingPage />}></Route>
   <Route path='community' element={<CommunityPage />}></Route>
   <Route path='safezones' element={<SafeZonePage />}></Route>

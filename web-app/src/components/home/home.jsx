@@ -11,6 +11,7 @@ import CommunityPage from "../community/community";
 import SafeZonePage from "../safezone/safezone";
 import ProfileSettingsComponent from "../profilesettings/profileSettings";
 import SafeZoneDetails from "../safezonedetails/safezone";
+import MyProfileAlerts from "../profile/myprofilealerts";
 const Home = ()=>{
    
    
@@ -24,6 +25,7 @@ return (
 <Route path='/login' element={<SignIn />}></Route>
 <Route path='/register' element={<SignUp2 />}></Route>
 <Route path='/profile' element={<ProfileComponent />}></Route>
+<Route path='/myalerts' element={<MyProfileAlerts />}></Route>
 <Route path='/wellbeing' element={<WellBeingPage />}></Route>
 <Route path='/community' element={<CommunityPage />}></Route>
 <Route path='/safezones' element={<SafeZonePage />}></Route>

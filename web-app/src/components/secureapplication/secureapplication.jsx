@@ -133,10 +133,20 @@ function SettingComponent({ middleContent }) {
                                 <p>Wellbeing Page</p>
                             </div>
                         </Link>
+
+                        <Link to="/myalerts" className="row_1">
+                            <div className="col_1">
+                            <FaRegUserCircle className="side_nav_icon" />
+                            </div>
+
+                            <div className="col_1">
+                                <p>My Alerts</p>
+                            </div>
+                        </Link>
                     </div>
 
                     <div className="settings">
-                        <Link to="/settings" className="row_1">
+                        {/* <Link to="/settings" className="row_1">
                             <div className="col_1 ">
                                 <CiSettings className="side_nav_icon" />
                             </div>
@@ -144,7 +154,7 @@ function SettingComponent({ middleContent }) {
                             <div className="col_1">
                                 <p>Settings</p>
                             </div>
-                        </Link>
+                        </Link> */}
 
                         <div
                             className="row_1 cian-cls"

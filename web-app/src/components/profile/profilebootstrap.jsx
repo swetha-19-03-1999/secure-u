@@ -154,7 +154,7 @@ function ProfileComponent() {
                 <Modal.Header closeButton>
                     <Modal.Title> <Circle /> Information</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Do you want logoout</Modal.Body>
+                <Modal.Body>Do you want logout</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         No

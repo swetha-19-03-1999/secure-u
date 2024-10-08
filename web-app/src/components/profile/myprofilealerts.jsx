@@ -12,7 +12,25 @@ import ReportIncident from '../dashboard/cards/reportincident';
 import SosEmergency from '../dashboard/cards/sosemergency';
 import MedicalEmergency from '../dashboard/cards/medicalemergency';
 import ToastMessageComponent from '../toast/toastmessage';
+import MiniCards from '../dashboard/cards/MiniCards2';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import CloseIcon from '@mui/icons-material/Close';
 const apiSatusCodes = { "LOADING": "loading", "FAILED": "fail", "SUCCESS": "success" }
+const modalStyle = {
+    // maxHeight: '90vh',
+    overflow: 'auto',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 700,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    borderRadius: "10px"
+    // p: 4,
+  };
 
 const MyProfileAlerts = () => {
     const [alerts, setAlerts] = useState([]);
@@ -20,6 +38,8 @@ const MyProfileAlerts = () => {
     const [apiStatus, setApiStatus] = useState(apiSatusCodes.LOADING);
     const [showToast, setShowToast] = useState(false);  //this handles the toast visiblity
     const [toastMessage, setToastMessage] = useState('');
+    const [selectedAlert, setSelectedAlert] = useState(null);
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     const onAlertAcceptClick = (al, userId, alertStatus) => {
@@ -65,6 +85,11 @@ const MyProfileAlerts = () => {
             )
     }, [updateUi])
 
+    const onViewClick = (alert) => {
+        setSelectedAlert(alert);
+        setShowModal(true);
+    };
+
     return (
         <div className="secure-zone-main">
             <div>
@@ -81,15 +106,13 @@ const MyProfileAlerts = () => {
                             </div> :
                                     alerts.map(each => {
 
-                                        if (each.incident_mode == 0) {
-                                            return <ReportIncident key={each.id} alertDetails={each} onAlertAcceptClick={onAlertAcceptClick} />;
-                                        } else if (each.incident_mode == 1) {
-                                            return <SosEmergency key={each.id} alertDetails={each} onAlertAcceptClick={onAlertAcceptClick} />;
-                                        } else if (each.incident_mode == 2) {
-                                            return <MedicalEmergency key={each.id} alertDetails={each} onAlertAcceptClick={onAlertAcceptClick} />;
-                                        } else {
-                                            return null;
-                                        }
+                                        return (
+                                            <MiniCards
+                                                key={each.id}
+                                                alertDetails={each}
+                                                onViewClick={onViewClick}
+                                            />
+                                        );
                                     })
 
                         }
@@ -97,6 +120,37 @@ const MyProfileAlerts = () => {
 
                     </Row>
                 </Container>
+                <Modal
+                open={showModal}
+                onClose={() => setShowModal(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={modalStyle}>
+                    <div style={{ margin: 10, float: 'right', cursor: 'pointer' }}><CloseIcon onClick={() => setShowModal(false)} /></div>
+                    {selectedAlert?.incident_mode == 0 && (
+                        <ReportIncident
+                            key={selectedAlert.id}
+                            alertDetails={selectedAlert}
+                            onAlertAcceptClick={onAlertAcceptClick}
+                        />
+                    )}
+                    {selectedAlert?.incident_mode == 1 && (
+                        <SosEmergency
+                            key={selectedAlert.id}
+                            alertDetails={selectedAlert}
+                            onAlertAcceptClick={onAlertAcceptClick}
+                        />
+                    )}
+                    {selectedAlert?.incident_mode == 2 && (
+                        <MedicalEmergency
+                            key={selectedAlert.id}
+                            alertDetails={selectedAlert}
+                            onAlertAcceptClick={onAlertAcceptClick}
+                        />
+                    )}
+                </Box>
+            </Modal>
             </div>
             <ToastMessageComponent toastMessage={toastMessage} showToast={showToast} closeToast={() => setShowToast(false)} />
         </div>
