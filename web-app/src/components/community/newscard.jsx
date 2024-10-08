@@ -17,6 +17,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import SendIcon from '@mui/icons-material/Send';
+import CommentIcon from '@mui/icons-material/Comment';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -109,6 +113,13 @@ const handleClose = () => {
           image={"http://localhost:3001/"+news_image}
           alt={news_title}
         />
+        <div style={{ width: '100%', marginTop: 10, cursor: 'pointer' }}>
+          <Stack direction="row" spacing={3}>
+            <ThumbUpOffAltIcon />
+            <CommentIcon />
+            <SendIcon />
+          </Stack>
+        </div>
       </div>
       <CardContent>
         <Typography variant="body2" className="text-start" color="text.secondary">

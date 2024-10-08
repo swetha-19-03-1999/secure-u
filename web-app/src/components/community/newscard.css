@@ -1,7 +1,9 @@
 .post-card-media-wrapper {
+    padding: 10px;
     width: 700px;
     height: 540px;
     display: flex;
+    flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
