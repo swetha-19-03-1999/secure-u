@@ -153,9 +153,9 @@ const ProfileSettingsComponent = () => {
     return (
 
         <div className="personal-component-div ">
-            <div className="bg2 page-div black-text text-center">
+            {/* <div className="bg2 page-div black-text text-center">
                 Secure - <span className="text1"> U</span>
-            </div>
+            </div> */}
 
             <div className='p-2'>
                 <h1 className="text1 mt-2

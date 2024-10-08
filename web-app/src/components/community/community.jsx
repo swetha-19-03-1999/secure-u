@@ -37,9 +37,9 @@ const CommunityPage = () => {
     return (
 
         <div className="">
-            <div className="bg2 page-div black-text text-center">
+            {/* <div className="bg2 page-div black-text text-center">
                 Secure - <span className="text1"> U</span>
-            </div>
+            </div> */}
             <div className="skyblue-bg page-div text2  text4 text-center">
                 Community - Page
             </div>

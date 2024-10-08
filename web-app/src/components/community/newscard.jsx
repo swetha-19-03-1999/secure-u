@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './newscard.css';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -14,6 +15,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,6 +31,8 @@ const ExpandMore = styled((props) => {
 
 export default function NewsCard(props) {
   const [expanded, setExpanded] = React.useState(false);
+  
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const {newsDetails}=props
   const {news_id,user_id,news_image="",news_title="Newsd title",short_description="",long_description="",time_stamp,user_name=""}=newsDetails
   const handleExpandClick = () => {
@@ -52,6 +57,13 @@ export default function NewsCard(props) {
     const formattedDate = `${day} ${month} ${year} , ${formattedHours}:${minutes}${ampm}`;
     return formattedDate
 }
+const handleClick = (event) => {
+  setAnchorEl(event.currentTarget);
+};
+const open = Boolean(anchorEl);
+const handleClose = () => {
+  setAnchorEl(null);
+};
 
   return (
     // <Card sx={{ maxWidth: 345 }}>
@@ -65,18 +77,39 @@ export default function NewsCard(props) {
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon />
+            <MoreVertIcon 
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClick}
+            />
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+            >
+              <MenuItem onClick={handleClose}>Edit Post</MenuItem>
+              <MenuItem onClick={handleClose}>Delete Post</MenuItem>
+              <MenuItem onClick={handleClose}>Report</MenuItem>
+            </Menu>
           </IconButton>
         }
         title={news_title}
         subheader={getformattedDate(time_stamp)}
       />
-      <CardMedia
-        component="img"
-        // height="194"
-        image={"http://localhost:3001/"+news_image}
-        alt={news_title}
-      />
+      <div className="post-card-media-wrapper">
+        <CardMedia
+          component="img"
+          className="post-card-media"
+          // height="194"
+          image={"http://localhost:3001/"+news_image}
+          alt={news_title}
+        />
+      </div>
       <CardContent>
         <Typography variant="body2" className="text-start" color="text.secondary">
          {short_description}
@@ -84,17 +117,17 @@ export default function NewsCard(props) {
       </CardContent>
       <CardActions disableSpacing>
       
-        <p>Veiw full details</p>
+        <p>View full details</p>
         <ExpandMore
-          expand={expanded}
+          expand={true}
           onClick={handleExpandClick}
-          aria-expanded={expanded}
+          aria-expanded={true}
           aria-label="show more"
         >
           <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={true} timeout="auto" unmountOnExit>
         <CardContent className="text-start">
           <Typography >
           {news_title}

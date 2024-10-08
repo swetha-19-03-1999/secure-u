@@ -230,17 +230,17 @@ export default function ControlledRadioButtonsGroup(props) {
             </CardContent>
             <CardActions disableSpacing>
 
-                <p>Veiw full details</p>
+                <p>View full details</p>
                 <ExpandMore
-                    expand={expanded}
+                    expand={true}
                     onClick={handleExpandClick}
-                    aria-expanded={expanded}
+                    aria-expanded={true}
                     aria-label="show more"
                 >
                     <ExpandMoreIcon />
                 </ExpandMore>
             </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <Collapse in={true} timeout="auto" unmountOnExit>
                 <CardContent className="text-start">
                     <Typography >
                         {news_title}

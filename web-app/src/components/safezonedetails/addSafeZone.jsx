@@ -71,12 +71,12 @@ function AddNewSafeZone(props) {
 
       <Row className=" text-start ">
         <Col sm={12} className='col1 p-0'>
-          <div className="bg2 page-div black-text text-center">
+          {/* <div className="bg2 page-div black-text text-center">
             Secure - <span className="text1"> U</span>
-          </div>
-          {/* <div className="skyblue-bg page-div text2  text4 text-center">
+          </div> */}
+          <div className="skyblue-bg page-div text2  text4 text-center">
             Safe - Zone
-         </div> */}
+         </div>
           <h2>Safe Zone</h2>
           <p>Update the details of this safe zone region.</p>
         </Col>
