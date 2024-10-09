@@ -66,23 +66,32 @@ const MyProfileAlerts = () => {
 
     useEffect(() => {
         const userId = localStorage.getItem("userid")
-        axios.get(`http://localhost:3001/security-alerts/assigned-to-me/${userId}`)
-            .then(
-                (res) => {
-                    setApiStatus(apiSatusCodes.SUCCESS)
-                    if (Array.isArray(res.data)) {
 
-                        setAlerts(res.data.reverse())
-                    } else {
-                        setAlerts([])
+        const fetchAlerts = () => {
+            axios.get(`http://localhost:3001/security-alerts/assigned-to-me/${userId}`)
+                .then(
+                    (res) => {
+                        setApiStatus(apiSatusCodes.SUCCESS)
+                        if (Array.isArray(res.data)) {
+    
+                            setAlerts(res.data.reverse())
+                        } else {
+                            setAlerts([])
+                        }
                     }
-                }
-            ).catch(
-                (e) => {
-                    setApiStatus(apiSatusCodes.FAILED)
-                    console.log('No Data Found')
-                }
-            )
+                ).catch(
+                    (e) => {
+                        setApiStatus(apiSatusCodes.FAILED)
+                        console.log('No Data Found')
+                    }
+                )
+        }
+
+        const intervalId = setInterval(fetchAlerts, 10000); // Fetch every 10 seconds
+
+        return () => {
+            clearInterval(intervalId);
+        }
     }, [updateUi])
 
     const onViewClick = (alert) => {
