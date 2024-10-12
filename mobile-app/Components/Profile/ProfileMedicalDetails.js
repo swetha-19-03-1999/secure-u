@@ -45,7 +45,7 @@ const ProfileMedicalDetails= ({ navigation }) => {
         });
         
           try {
-            const response = await axios.get(`http://192.168.0.126:3001/profilebyid/${userIds}`); // Replace with your API endpoint
+            const response = await axios.get(`http://192.168.1.116:3001/profilebyid/${userIds}`); // Replace with your API endpoint
             setUserDetails(response.data[0]);
           } catch (error) {
             setError(error);
@@ -72,7 +72,7 @@ const ProfileMedicalDetails= ({ navigation }) => {
 
 
         try {
-          const response = await axios.put('http://192.168.0.126:3001/updateusersprofilemedicaldetails', { "user_blood_group":user_blood_group,
+          const response = await axios.put('http://192.168.1.116:3001/updateusersprofilemedicaldetails', { "user_blood_group":user_blood_group,
              "user_medical_condition":user_medical_condition, 
              "user_special_requirement":user_special_requirement,
             "user_id": userIds});
@@ -90,7 +90,7 @@ const ProfileMedicalDetails= ({ navigation }) => {
     //   };
     return (
         <View style={styles.container}>
-            <HeaderComponent  navigation={navigation}/>
+            <HeaderComponent />
             <ScrollView>
             <Text style={styles.header}>Profile</Text>
             <View style={styles.inputContainer}>

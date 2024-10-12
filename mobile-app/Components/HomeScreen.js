@@ -5,16 +5,11 @@ import HeaderComponent from './Header';
 import BottomNavigation from './bottom_nav';
 import SOSButton from './SOSButton';
 import ReportIncidentButton from './ReportIncidents';
-import ProfileComponent from './Profile/profileicon';
 
 const HomeScreen = ({navigation}) => {
-
-
-
-
   return (
     <View style={styles.container}>
-      <HeaderComponent navigation={navigation}/>
+      <HeaderComponent/>
       <SOSButton/>
       {/* <ReportIncidentButton/> */}
       <BottomNavigation/>

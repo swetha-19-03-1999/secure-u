@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 function AvatarImg({ image, name, size }) {
 
   let sx = size ? { width: size, height: size } : {  };
-
+  console.log(image, name, size, ">>>>>> Avatar")
   return (
     
         image ? 
@@ -15,8 +15,8 @@ function AvatarImg({ image, name, size }) {
             src={"http://localhost:3001/" + image}
             sx={sx}
         />
-        :
-        <Avatar {...stringAvatar(name)} />
+        : (name ? <Avatar {...stringAvatar(name)} /> : null)
+        
     
   )
 }

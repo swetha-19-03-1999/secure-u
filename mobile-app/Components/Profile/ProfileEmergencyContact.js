@@ -5,7 +5,7 @@ import BottomNavigation from '../bottom_nav';
 import axios from 'axios';
 import SQLite from 'react-native-sqlite-storage';
 
-const ProfileEmergencyContact = ({navigation}) => {
+const ProfileEmergencyContact = ({ navigation }) => {
 
     const [formData, setFormData] = useState({
         user_id:'',
@@ -45,9 +45,9 @@ const ProfileEmergencyContact = ({navigation}) => {
         // Fetch user details when the component mounts
         const fetchUserDetails = async () => {
           try {
-            console.log("profile emergency :: "+`http://192.168.0.126:3001/profilebyid/${userIds}`)
+            console.log("profile emergency :: "+`http://192.168.1.116:3001/profilebyid/${userIds}`)
 
-            const response = await axios.get(`http://192.168.0.126:3001/profilebyid/${userIds}`); // Replace with your API endpoint
+            const response = await axios.get(`http://192.168.1.116:3001/profilebyid/${userIds}`); // Replace with your API endpoint
             setUserDetails(response.data[0]);
 console.log("user details :: "+userDetails)
 
@@ -93,7 +93,7 @@ console.log("user details :: "+userDetails)
 
 
         try {
-          const response = await axios.put('http://192.168.0.126:3001/updateusersprofileemergencycontact', {"user_id":userIds, 
+          const response = await axios.put('http://192.168.1.116:3001/updateusersprofileemergencycontact', {"user_id":userIds, 
             "user_emergency_contact_name":user_emergency_contact_name,
              "user_emergency_contact_relationship":user_emergency_contact_relationship, 
              "user_emergency_contact_number":user_emergency_contact_number });
@@ -107,7 +107,7 @@ console.log("user details :: "+userDetails)
       };
     return (
         <View style={styles.container}>
-            <HeaderComponent  navigation={navigation}/>
+            <HeaderComponent />
             <ScrollView>
             <Text style={styles.header}>Profile</Text>
             <View style={styles.inputContainer}>

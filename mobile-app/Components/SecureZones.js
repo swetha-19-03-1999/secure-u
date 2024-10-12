@@ -4,7 +4,7 @@ import HeaderComponent from './Header';
 import BottomNavigation from './bottom_nav';
 import axios from 'axios';
 
-const SecureZoneComponent = ({ navigation }) => {
+const SecureZoneComponent = () => {
     const [selectedZone, setSelectedZone] = useState(null);
 
     const [safeZonedata, setSafeZoneData] = useState(null);
@@ -15,7 +15,7 @@ const SecureZoneComponent = ({ navigation }) => {
         // Define an async function to fetch data
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://192.168.0.126:3001/safe-zones');
+                const response = await axios.get('http://192.168.1.116:3001/safe-zones');
                 setSafeZoneData(response.data); // Set the data from the response
                 if(response.data.length>0){
 
@@ -50,7 +50,7 @@ const SecureZoneComponent = ({ navigation }) => {
         <View style={styles.card}>
             {safeZonedata.map((item) => (
                 <TouchableOpacity
-                    key={item.zone_id}
+                    key={item.id}
                     style={styles.cardlist}
                     onPress={() => setSelectedZone(item)}
                 >
@@ -63,7 +63,7 @@ const SecureZoneComponent = ({ navigation }) => {
 
     const renderDetails = () => (
         <View style={styles.detailsContainer}>
-            <Image source={{uri:'http://192.168.0.126:3001/'+selectedZone.zone_img}} style={styles.image} />
+            <Image source={{uri:'http://192.168.1.116:3001/'+selectedZone.zone_img}} style={styles.image} />
             <Text style={styles.detailsTitle}>{selectedZone.title}</Text>
             <Text style={styles.detailsText}>Number of Incidents: {selectedZone.number_of_incidents}</Text>
             <Text style={styles.detailsText}>Note: {selectedZone.note}</Text>
@@ -77,7 +77,7 @@ const SecureZoneComponent = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <HeaderComponent  navigation={navigation}/>
+            <HeaderComponent />
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Secure Zones</Text>
             </View>

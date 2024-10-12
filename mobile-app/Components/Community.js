@@ -6,7 +6,7 @@ import BottomNavigation from './bottom_nav';
 import ImagePicker from 'react-native-image-crop-picker';
 import SQLite from 'react-native-sqlite-storage';
 
-const App = ({ navigation }) => {
+const App = () => {
     const [posts, setPosts] = useState([]);
     const [isAddingPost, setIsAddingPost] = useState(false);
     const [userId, setUserId] = useState(null);
@@ -17,7 +17,7 @@ const App = ({ navigation }) => {
 
     useEffect(() => {
         if (!isAddingPost) {
-            axios.get('http://192.168.0.126:3001/newsposts')
+            axios.get('http://192.168.1.116:3001/newsposts')
                 .then(response => {
                     setPosts(response.data);
                 })
@@ -61,7 +61,7 @@ const App = ({ navigation }) => {
             });
         }
 
-        axios.post('http://192.168.0.126:3001/addnewNews', formData, {
+        axios.post('http://192.168.1.116:3001/addnewNews', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -126,7 +126,7 @@ const App = ({ navigation }) => {
     if (isAddingPost) {
         return (
             <View style={styles.container}>
-                <HeaderComponent  navigation={navigation}/>
+                <HeaderComponent />
                 <View style={styles.headerContainer}>
                     <Text style={styles.headerText}>Community</Text>
                 </View>
@@ -178,7 +178,7 @@ const App = ({ navigation }) => {
     }
     return (
         <View style={styles.container}>
-            <HeaderComponent  navigation={navigation}/>
+            <HeaderComponent />
             <View style={styles.headerContainer}>
                 <Text style={styles.headerText}>Community</Text>
             </View>
@@ -186,7 +186,7 @@ const App = ({ navigation }) => {
                 {posts.map((post, index) => (
                     <View key={index} style={styles.postContainer}>
                         <View style={styles.postHeader}>
-                            <Image source={{ uri: 'http://192.168.0.126:3001/'+post.user_profile_pic }} style={styles.profileImage} />
+                            <Image source={{ uri: 'http://192.168.1.116:3001/uploads/1727282274054.jpg' }} style={styles.profileImage} />
                             <View style={styles.userInfo}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <Text style={styles.username}>{post.user_name}</Text>
@@ -198,7 +198,7 @@ const App = ({ navigation }) => {
                         <Text style={styles.posttitle}>{post.news_title}</Text>
                         <Text style={styles.postDescription}>{post.long_description}</Text>
                         
-                            <Image key={index} source={{ uri: "http://192.168.0.126:3001/"+post.news_image }} style={styles.postImage} />
+                            <Image key={index} source={{ uri: "http://192.168.1.116:3001/"+post.news_image }} style={styles.postImage} />
                         
                     </View>
                 ))}

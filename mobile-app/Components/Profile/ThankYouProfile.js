@@ -10,7 +10,7 @@ const ProfileThanku= ({ navigation }) => {
       };
     return (
         <View style={styles.container}>
-            <HeaderComponent  navigation={navigation}/>
+            <HeaderComponent />
             <Text style={styles.header}>Profile</Text>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>Thank You !</Text>

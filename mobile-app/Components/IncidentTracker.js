@@ -6,7 +6,7 @@ import BottomNavigation from './bottom_nav';
 import axios from 'axios';
 import SQLite from 'react-native-sqlite-storage';
 
-const IncidentTrackerComponent = ({ navigation }) => {
+const IncidentTrackerComponent = () => {
     const [incidents, setIncidents] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -34,7 +34,7 @@ const IncidentTrackerComponent = ({ navigation }) => {
             });
 
             try {
-                const response = await axios.get(`http://192.168.0.126:3001/students/${userIds}`); // Replace with your API endpoint
+                const response = await axios.get(`http://192.168.1.116:3001/students/${userIds}`); // Replace with your API endpoint
                 setIncidents(response.data);
             } catch (error) {
                 setError(error);
@@ -67,7 +67,7 @@ const IncidentTrackerComponent = ({ navigation }) => {
     }
     return (
         <View style={styles.container}>
-            <HeaderComponent  navigation={navigation}/>
+            <HeaderComponent />
             <View style={styles.header}>
                 <Text style={styles.headerText}>Incident Tracker</Text>
             </View>

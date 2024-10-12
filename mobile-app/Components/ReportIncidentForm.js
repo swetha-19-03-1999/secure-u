@@ -98,7 +98,7 @@ const IncidentReportScreen = () => {
 
     //console.log("every thing good form data :: "+JSON.stringify(formData) )
 
-        axios.post('http://192.168.0.126:3001/newreportincidentalert', formData2,{
+        axios.post('http://192.168.1.116:3001/newreportincidentalert', formData2,{
         
                 headers: {
                     'Content-Type': 'multipart/form-data', // Set the content type for the request

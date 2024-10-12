@@ -31,7 +31,7 @@ const SplashScreen = ({ navigation }) => {
 
             const db = SQLite.openDatabase({ name: 'mydb.db', location: 'default' });
             db.transaction(tx => {
-              //tx.executeSql('DELETE FROM users')
+             //  tx.executeSql('DELETE FROM users')
                 tx.executeSql('SELECT * FROM users', [], (tx, results) => {
                     const rows = results.rows;
                     for (let i = 0; i < rows.length; i++) {

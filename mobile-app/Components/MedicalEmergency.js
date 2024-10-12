@@ -63,7 +63,7 @@ db.transaction(tx => {
  console.log("everything good medical :: "+JSON.stringify(sosData))
 
         try {
-          const response = await axios.post('http://192.168.0.126:3001/newsosalert', sosData);
+          const response = await axios.post('http://192.168.1.116:3001/newsosalert', sosData);
 
           Alert.alert('Success', 'Medical Emergency Button Trigered  ');
           setButtonEnabled(true);

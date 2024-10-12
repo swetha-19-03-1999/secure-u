@@ -62,7 +62,7 @@ db.transaction(tx => {
         };
 console.log("sos data :: "+JSON.stringify(sosData))
         try {
-          const response = await axios.post('http://192.168.0.126:3001/newsosalert', sosData);
+          const response = await axios.post('http://192.168.1.116:3001/newsosalert', sosData);
           setSosDetails(sosData); // Save SOS details
           setModalVisible(true); // Show modal on success
           setButtonEnabled(true);

@@ -22,41 +22,13 @@ const LoginScreen = ({ navigation }) => {
                 user_email: user_email,
                 user_password: user_password,
             }) )
-            const response = await axios.post('http://192.168.0.126:3001/login', {
+            const response = await axios.post('http://192.168.1.116:3001/login', {
                 user_email: user_email,
                 user_password: user_password,
             });
             if (response.status === 200) {
                 if (response.data.length > 0) {
                     // await AsyncStorage.setItem('userId', response.data[0]);
-
-                    const response2 = await axios.get(`http://192.168.0.126:3001/profilebyid/${response.data[0].user_id}`);
-
-
-                    const {user_university_name,user_student_id,user_mobile_number,user_academic_program,user_emergency_contact_name,
-                        user_emergency_contact_relationship,user_emergency_contact_number,user_blood_group,user_medical_condition,
-                        user_special_requirement
-                    }=response2.data[0]
-                  console.log("gghhhhhjhj"+JSON.stringify(response2.data[0] ))
-                    
-                  console.log("user_university_name :: "+user_university_name)
-
-                       if(!user_university_name||
-                        !user_student_id||
-                        !user_mobile_number||
-                        !user_academic_program){
-                            navigation.navigate('Profile')
-         
-                       }else if(!user_emergency_contact_name||
-                        !user_emergency_contact_relationship||
-                        !user_emergency_contact_number){
-                            navigation.navigate('EmergencyContact');
-                        }else if(!user_blood_group||
-                            !user_medical_condition||
-                            !user_special_requirement){
-                                navigation.navigate('MedicalDetails');
-
-                       }else{
                     //Set User_id in Sqlite Local storage
                     const db = SQLite.openDatabase({ name: 'mydb.db' });
 
@@ -76,17 +48,11 @@ const LoginScreen = ({ navigation }) => {
                         });
                     
                     });
-
-
-                        navigation.navigate('Home');
-                       }
-
-
                     Alert.alert('Success', 'Login successfull' +response.data[0].user_id);
 
 
                     // Handle successful login, like navigating to another screen
-                 //   navigation.navigate('Profile',{userId:response.data[0].user_id})
+                    navigation.navigate('Profile',{userId:response.data[0].user_id})
                 }
                 else {
                     Alert.alert('Error', 'Invalid credentials');

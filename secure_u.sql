@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2024 at 09:02 AM
+-- Generation Time: Sep 26, 2024 at 02:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -203,8 +203,7 @@ INSERT INTO `securityalerts` (`alert_id`, `user_id`, `user_name`, `incident_mode
 (84, 19, '', 2, '', 'Medical Emergency', NULL, '2024-09-25 21:35:36', 'open', NULL, '37.4220936', '-122.083922', '', ''),
 (85, 20, '', 1, '', 'SOS', NULL, '2024-09-26 00:16:23', 'ASSIGNED', 20, '37.4220936', '-122.083922', '', ''),
 (86, 20, '', 0, '', 'theft', NULL, '2024-09-26 00:23:06', 'ASSIGNED', 21, '37.4220936', '-122.083922', '', '2024-09-25T23:21:00.000Z'),
-(87, 20, '', 2, '', 'Medical Emergency', NULL, '2024-09-26 00:27:11', 'ASSIGNED', 21, '37.4220936', '-122.083922', '', ''),
-(88, 19, '', 1, '', 'SOS', NULL, '2024-09-27 03:21:34', 'open', NULL, '37.4220936', '-122.083922', '', '');
+(87, 20, '', 2, '', 'Medical Emergency', NULL, '2024-09-26 00:27:11', 'ASSIGNED', 21, '37.4220936', '-122.083922', '', '');
 
 -- --------------------------------------------------------
 
@@ -237,10 +236,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_type`, `user_name`, `user_email`, `user_password`, `user_university_name`, `user_student_id`, `user_profile_pic`, `user_employe_id`, `user_mobile_number`, `user_academic_program`, `user_emergency_contact_name`, `user_emergency_contact_relationship`, `user_emergency_contact_number`, `user_blood_group`, `user_medical_condition`, `user_special_requirement`) VALUES
-(18, 0, 'testing', 'testing@gmail.com', '123456', 'gdgsgfs', '12333', 'uploads\\1727280069955.jpg', '', '2222222', '2333', '667777', 'vbbbbbn', 'gghhjhjhjjh', 'Gggggg', 'Ttttttt', '22222222'),
+(18, 0, 'testing', 'testing@gmail.com', '123456', 'gdgsgfs', '12333', 'uploads\\1727280069955.jpg', '', '2222222', '2333', '', '', '', '', '', ''),
 (19, 0, 'suresh', 'suresh@gmail.com', '123456', '1fffdfd', '4436', 'uploads\\1727294990498.jpg', '', '333434dsds', '334366', 'fdsdf', 'br', '2222222', 'Ab+', '223', '22222'),
-(20, 0, 'Ramesh', 'Rameshk@gmail.com', '123456', 'my university', '1234', 'uploads\\1727309514854.jpg', '', '1234456', 'yyuuu', 'praveen', '1', '44355554', 'B+', 'good', 'all goood'),
-(21, 0, 'testingnew', 'testnew@gmail.com', '123456', '', '', '', '', '', '', '', '', '', '', '', '');
+(20, 0, 'Ramesh', 'Rameshk@gmail.com', '123456', 'my university', '1234', 'uploads\\1727309514854.jpg', '', '1234456', 'yyuuu', 'praveen', '1', '44355554', 'B+', 'good', 'all goood');
 
 --
 -- Indexes for dumped tables
@@ -303,13 +301,13 @@ ALTER TABLE `safe_zones`
 -- AUTO_INCREMENT for table `securityalerts`
 --
 ALTER TABLE `securityalerts`
-  MODIFY `alert_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `alert_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

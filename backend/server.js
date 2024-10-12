@@ -198,7 +198,7 @@ app.get('/safe-zones', async (req, res) => {
 //News or Community Post
 app.get('/newsposts', async (req, res) => {
     try {
-        const [rows] = await db.execute('SELECT * FROM `news` INNER JOIN users ON news.user_id=users.user_id   ORDER BY `news_id` DESC; ');
+        const [rows] = await db.execute('SELECT * FROM news ');
         res.status(200).json(rows);
     } catch (error) {
         res.status(500).json({ error: error.message });

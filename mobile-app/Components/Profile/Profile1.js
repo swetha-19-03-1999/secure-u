@@ -6,7 +6,7 @@ import axios from 'axios';
 import SQLite from 'react-native-sqlite-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 
-const ProfileDetails1 = ({navigation}) => {
+const ProfileDetails1 = ({ route,navigation }) => {
    // const {userId} = route.params;
     const [formData, setFormData] = useState({
         user_id: '',
@@ -43,9 +43,9 @@ const ProfileDetails1 = ({navigation}) => {
                     });
                 });
 
-                 const url=`http://192.168.0.126:3001/profilebyid/${userIds}`
+                 const url=`http://192.168.1.116:3001/profilebyid/${userIds}`
                  console.log("user url :: "+url)
-                const response = await axios.get(`http://192.168.0.126:3001/profilebyid/${userIds}`);
+                const response = await axios.get(`http://192.168.1.116:3001/profilebyid/${userIds}`);
                 setUserDetails(response.data[0]);
              if(response.data[0].user_university_name!=''){
 
@@ -122,7 +122,7 @@ const ProfileDetails1 = ({navigation}) => {
             try{
             const json=JSON.stringify(formData2)
             console.log("formdata2 json"+json)
-          const response = await axios.post('http://192.168.0.126:3001/updatedatabyimage', formData2, {
+          const response = await axios.post('http://192.168.1.116:3001/updatedatabyimage', formData2, {
                headers: {
                    'Content-Type': 'multipart/form-data', // Set the content type for the request
                },
@@ -134,6 +134,8 @@ const ProfileDetails1 = ({navigation}) => {
            console.error(error);
        }
         }
+        
+      
     };
 
     const handleImagePicker = (type) => {
@@ -165,7 +167,7 @@ const ProfileDetails1 = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <HeaderComponent  navigation={navigation}/>
+            <HeaderComponent />
             <ScrollView>
                 <Text style={styles.header}>Profile</Text>
                 <View style={styles.inputContainer}>
@@ -218,17 +220,6 @@ const ProfileDetails1 = ({navigation}) => {
                         </View>
                     )}
 
-{userDetails.user_profile_pic && (
-                        <View style={styles.imagePreviewContainer}>
-                            <Image
-                                source={{ uri:'http://192.168.0.126:3001/'+ userDetails.user_profile_pic }}
-                                style={styles.imagePreview}
-                            />
-                            <TouchableOpacity onPress={handleRemoveImage} style={styles.removeButton}>
-                                <Text style={styles.removeButtonText}>Remove</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )}
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.button} onPress={handleNext}>
                             <Text style={styles.buttonText}>Next</Text>

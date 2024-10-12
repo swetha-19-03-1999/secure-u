@@ -2,10 +2,10 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import HeaderComponent from './Header';
 import BottomNavigation from './bottom_nav';
 
-const WellbeingComponent = ({ navigation }) => {
+const WellbeingComponent = () => {
     return (
         <View style={styles.container}>
-            <HeaderComponent  navigation={navigation}/>
+            <HeaderComponent />
             <ScrollView>
                 <Text style={styles.header}>Wellbeing</Text>
                 <View style={styles.textcontainer}>
