@@ -60,7 +60,6 @@ db.transaction(tx => {
           latitude, // Fixed spelling from 'lattitude' to 'latitude'
           longitude,
         };
-console.log("sos data :: "+JSON.stringify(sosData))
         try {
           const response = await axios.post('http://192.168.1.116:3001/newsosalert', sosData);
           setSosDetails(sosData); // Save SOS details

@@ -5,12 +5,14 @@ import HeaderComponent from './Header';
 import BottomNavigation from './bottom_nav';
 import SOSButton from './SOSButton';
 import ReportIncidentButton from './ReportIncidents';
+import HomePage from './HomePage';
 
 const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <HeaderComponent/>
-      <SOSButton/>
+      <HomePage/>
+      {/* <SOSButton/> */}
       {/* <ReportIncidentButton/> */}
       <BottomNavigation/>
     </View>

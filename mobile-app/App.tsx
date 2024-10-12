@@ -19,6 +19,8 @@ import MedicalEmergencyButton from './Components/MedicalEmergency';
 import HomeScreenMedical from './Components/HomeScreenMedical';
 import IncidentReportScreen from './Components/ReportIncidentForm';
 import CommunityPosts from './Components/Community';
+import HomePage from './Components/HomePage';
+import SOSButton from './Components/SOSButton';
 
 
 const Stack = createNativeStackNavigator();
@@ -45,6 +47,10 @@ const App = () => {
           name="Home"
           component={HomeScreen}
         />
+        {/* <Stack.Screen
+          name="HomePage"
+          component={HomePage}
+        /> */}
         <Stack.Screen
           name="SignUp"
           component={SignUpScreen}
@@ -77,6 +83,10 @@ const App = () => {
         <Stack.Screen
           name="Wellbeing"
           component={WellbeingComponent}
+        />
+        <Stack.Screen
+          name="Sos"
+          component={SOSButton}
         />
         <Stack.Screen
           name="Reportincident"
