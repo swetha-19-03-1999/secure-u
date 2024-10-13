@@ -1,4 +1,3 @@
-// SignUpScreen.js
 import axios from 'axios';
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
@@ -9,8 +8,6 @@ const LoginScreen = ({ navigation }) => {
     const [user_password, setUser_Password] = useState('');
 
     const handleLogin = async () => {
-
-
         // Basic validation
         if (!user_email || !user_password) {
             Alert.alert('Error', 'Email and password are required.');
@@ -18,52 +15,35 @@ const LoginScreen = ({ navigation }) => {
         }
         // Send login request to the backend
         try {
-             console.log("user login"+JSON.stringify({
-                user_email: user_email,
-                user_password: user_password,
-            }) )
             const response = await axios.post('http://192.168.1.116:3001/login', {
                 user_email: user_email,
                 user_password: user_password,
             });
             if (response.status === 200) {
                 if (response.data.length > 0) {
-                    // await AsyncStorage.setItem('userId', response.data[0]);
-                    //Set User_id in Sqlite Local storage
                     const db = SQLite.openDatabase({ name: 'mydb.db' });
-
-                    // Create table and insert data
                     db.transaction(tx => {
-                        tx.executeSql('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY,  user_id INTEGER,status INTEGER)');
-                        tx.executeSql('DELETE FROM users')
-
-                        tx.executeSql('INSERT INTO users (user_id,status) VALUES (?,?)', [response.data[0].user_id,1]);
+                        tx.executeSql('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, user_id INTEGER, status INTEGER)');
+                        tx.executeSql('DELETE FROM users');
+                        tx.executeSql('INSERT INTO users (user_id, status) VALUES (?,?)', [response.data[0].user_id, 1]);
                         tx.executeSql('SELECT * FROM users', [], (tx, results) => {
                             const rows = results.rows;
                             for (let i = 0; i < rows.length; i++) {
-                                console.log("everything good :: "+JSON.stringify(rows.item(i).user_id) );
-                              //  rows.item(i).status==1?navigation.replace('Home'):navigation.replace('Landing')
-                                
+                                console.log("everything good :: " + JSON.stringify(rows.item(i).user_id));
                             }
                         });
-                    
                     });
-                    Alert.alert('Success', 'Login successfull' +response.data[0].user_id);
-
-
-                    // Handle successful login, like navigating to another screen
-                    navigation.navigate('Profile',{userId:response.data[0].user_id})
-                }
-                else {
+                    Alert.alert('Success', 'Login successful');
+                    navigation.navigate('Profile', { userId: response.data[0].user_id });
+                } else {
                     Alert.alert('Error', 'Invalid credentials');
                 }
-
             } else {
                 Alert.alert('Error', 'Login failed.');
             }
         } catch (error) {
             console.error(error);
-            Alert.alert('Error', 'An error occurred during login.' + error);
+            Alert.alert('Error', 'An error occurred during login.');
         }
     };
 
@@ -92,6 +72,10 @@ const LoginScreen = ({ navigation }) => {
                 onChangeText={setUser_Password}
                 secureTextEntry
             />
+            {/* Forgot Password Link */}
+            <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            </TouchableOpacity>
             <TouchableOpacity
                 style={styles.button}
                 onPress={handleLogin}
@@ -131,19 +115,25 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     button: {
-        backgroundColor: '#3B9AB2', // Button color
-        paddingVertical: 7, // Vertical padding
-        paddingHorizontal: 30, // Horizontal padding
-        borderRadius: 25, // Rounded corners
-        width: '70%', // Button width
-        alignItems: 'center', // Center text
-        marginTop: 100
+        backgroundColor: '#3B9AB2',
+        paddingVertical: 7,
+        paddingHorizontal: 30,
+        borderRadius: 25,
+        width: '70%',
+        alignItems: 'center',
+        marginTop: 20,
     },
     buttonText: {
-        color: '#fff', // Text color
-        fontSize: 18, // Font size
+        color: '#fff',
+        fontSize: 18,
         fontWeight: 'bold',
     },
+    forgotPasswordText: {
+        color: '#ffffff',
+        marginTop: 15,
+        fontSize: 16,
+        textDecorationLine: 'underline',
+    }
 });
 
 export default LoginScreen;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Modal, Linking } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
@@ -12,20 +12,18 @@ const SOSButton = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sosDetails, setSosDetails] = useState({}); // State to hold SOS details
   const [securityNumber, setSecurityNumber] = useState('123-456-7890'); // Example security number
-  const [userId,setuserid]=useState(0)
+  const [userId, setUserId] = useState(0);
+
   const handleSOSPress = () => {
     setCountdown(5);
     setButtonEnabled(false); // Disable the button when clicked
   };
 
   useEffect(() => {
-
-
-
     if (countdown > 0) {
       const timer = setInterval(() => {
         setCountdown(countdown - 1);
-      }, 1000); // Changed interval to 1000ms for 1-second countdown
+      }, 1000); // 1-second countdown interval
 
       return () => clearInterval(timer);
     } else if (countdown === 0 && location === null && !buttonEnabled) {
@@ -36,37 +34,33 @@ const SOSButton = () => {
   const triggerSOS = () => {
     const db = SQLite.openDatabase({ name: 'mydb.db' });
 
-// Create table and insert data
-db.transaction(tx => {
-  console.log("everything good :: 2 " );
-   tx.executeSql('SELECT * FROM users', [], (tx, results) => {
-      const rows = results.rows;
-      userIds=rows.item(0).user_id
+    db.transaction(tx => {
+      tx.executeSql('SELECT * FROM users', [], (tx, results) => {
+        const rows = results.rows;
+        const userIds = rows.item(0).user_id;
+      });
+    });
 
-     
-  });
-});
     Geolocation.getCurrentPosition(
       async position => {
         const { latitude, longitude } = position.coords;
         setLocation({ latitude, longitude });
-                              
-        
 
         const sosData = {
-          user_id: userIds, // Replace with actual user ID
-          incident_mode: 1, // Replace with actual accident mode
+          user_id: userId, // Replace with actual user ID
+          incident_mode: 1, // Replace with actual incident mode
           description: 'SOS',
-          latitude, // Fixed spelling from 'lattitude' to 'latitude'
+          latitude, // Corrected spelling from 'lattitude'
           longitude,
         };
+
         try {
           const response = await axios.post('http://192.168.1.116:3001/newsosalert', sosData);
           setSosDetails(sosData); // Save SOS details
           setModalVisible(true); // Show modal on success
           setButtonEnabled(true);
         } catch (error) {
-          Alert.alert('Error', 'Failed SOS Button');
+          Alert.alert('Error', 'Failed to send SOS alert');
           setButtonEnabled(true);
           console.error(error);
         }
@@ -74,7 +68,7 @@ db.transaction(tx => {
       error => {
         console.error('Error getting location:', error);
         setButtonEnabled(true); // Re-enable the button even if there is an error
-        Alert.alert('Error', 'Error getting location', error);
+        Alert.alert('Error', 'Error getting location');
       },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 10000 }
     );
@@ -84,6 +78,11 @@ db.transaction(tx => {
 
   const handleNext = () => {
     navigation.navigate('Reportincident');
+  };
+
+  // Function to open the dialer
+  const dialSecurityNumber = () => {
+    Linking.openURL(`tel:${securityNumber}`);
   };
 
   return (
@@ -113,7 +112,13 @@ db.transaction(tx => {
           {/* Card for security details */}
           <View style={styles.card}>
             <Text style={styles.cardText}>The Security is on the way</Text>
-            <Text style={styles.cardText}>Security Number: {securityNumber}</Text>
+
+            {/* Clickable security number */}
+            <TouchableOpacity onPress={dialSecurityNumber}>
+              <Text style={[styles.cardText, styles.linkText]}>
+                Security Number: {securityNumber}
+              </Text>
+            </TouchableOpacity>
           </View>
 
           <TouchableOpacity
@@ -196,6 +201,10 @@ const styles = StyleSheet.create({
     color: '#0d0c0d',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  linkText: {
+    color: 'blue',
+    textDecorationLine: 'underline',
   },
 });
 

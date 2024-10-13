@@ -285,7 +285,8 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#fff',
-        fontSize: 20,
+        fontSize: 30,
+        fontWeight: 'bold',
         textAlign: 'center',
     },
     formWrapper: {
