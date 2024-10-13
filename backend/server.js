@@ -196,14 +196,26 @@ app.get('/safe-zones', async (req, res) => {
     }
 });
 //News or Community Post
+// app.get('/newsposts', async (req, res) => {
+//     try {
+//         const [rows] = await db.execute('SELECT * FROM news ');
+//         res.status(200).json(rows);
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
 app.get('/newsposts', async (req, res) => {
     try {
-        const [rows] = await db.execute('SELECT * FROM news ');
+        // Modified query to join news and users tables
+        const [rows] = await db.execute(`
+           SELECT news.*, users.user_name AS user_names FROM news INNER JOIN users ON news.user_id = users.user_id;
+        `);
         res.status(200).json(rows);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 // Create a new News Post
 app.post('/addnewNews',upload.single('news_image'), async (req, res) => {
