@@ -21,6 +21,8 @@ import IncidentReportScreen from './Components/ReportIncidentForm';
 import CommunityPosts from './Components/Community';
 import HomePage from './Components/HomePage';
 import SOSButton from './Components/SOSButton';
+import SosButtonWrapper from './Components/SosButtonWrapper';
+import ForgotPasswordScreen from './Components/ForgotPasswordScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -62,6 +64,11 @@ const App = () => {
         />
 
         <Stack.Screen
+          name="ForgotPassword"
+          component={ForgotPasswordScreen}
+        />
+
+        <Stack.Screen
           name="Profile"
           component={ProfileDetails1}
         />
@@ -86,7 +93,7 @@ const App = () => {
         />
         <Stack.Screen
           name="Sos"
-          component={SOSButton}
+          component={SosButtonWrapper}
         />
         <Stack.Screen
           name="Reportincident"
