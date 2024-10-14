@@ -21,6 +21,7 @@
     "axios": "^1.7.7",
     "react": "18.2.0",
     "react-native": "0.74.5",
+    "react-native-audio-recorder-player": "^3.6.11",
     "react-native-datepicker": "^1.7.2",
     "react-native-document-picker": "^9.3.1",
     "react-native-geolocation-service": "^5.3.1",
@@ -39,6 +40,7 @@
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
+    "@react-native-vector-icons/fontawesome": "^4.7.0-alpha.30",
     "@react-native/babel-preset": "0.74.87",
     "@react-native/eslint-config": "0.74.87",
     "@react-native/metro-config": "0.74.87",
@@ -49,10 +51,9 @@
     "eslint": "^8.19.0",
     "jest": "^29.6.3",
     "prettier": "2.8.8",
-    "react-test-renderer": "18.2.0",
-    "typescript": "5.0.4",
     "react-native-vector-icons": "^10.2.0",
-    "@react-native-vector-icons/fontawesome": "^4.7.0-alpha.30"
+    "react-test-renderer": "18.2.0",
+    "typescript": "5.0.4"
   },
   "engines": {
     "node": ">=18"

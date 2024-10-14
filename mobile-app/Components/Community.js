@@ -85,7 +85,7 @@ const App = () => {
                                 onPress={() => handleLike(post.id)} // Toggle like/unlike
                             >
                                 <Icon
-                                    name={likes[post.id] ? 'heart' : 'heart'} // 'heart' for liked, 'heart-o' for unliked
+                                    name={'heart'} // 'heart' for liked, 'heart-o' for unliked
                                     size={30}
                                     color={likes[post.id] ? 'red' : 'gray'} // Red if liked, gray if not liked
                                 />

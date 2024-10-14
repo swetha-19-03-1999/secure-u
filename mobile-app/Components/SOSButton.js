@@ -1,29 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert, Modal, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Modal, Linking, PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import SQLite from 'react-native-sqlite-storage';
+import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+import { launchCamera } from 'react-native-image-picker'; // For video recording
 
 const SOSButton = () => {
   const [countdown, setCountdown] = useState(0);
   const [location, setLocation] = useState(null);
   const [buttonEnabled, setButtonEnabled] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [sosDetails, setSosDetails] = useState({}); // State to hold SOS details
-  const [securityNumber, setSecurityNumber] = useState('123-456-7890'); // Example security number
+  const [sosDetails, setSosDetails] = useState({});
+  const [securityNumber, setSecurityNumber] = useState('123-456-7890');
   const [userId, setUserId] = useState(0);
+
+  const audioRecorderPlayer = new AudioRecorderPlayer();
+
+  const requestPermissions = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.requestMultiple([
+          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+        ]);
+
+        return granted;
+      } catch (err) {
+        console.warn(err);
+        return null;
+      }
+    }
+  };
 
   const handleSOSPress = () => {
     setCountdown(5);
-    setButtonEnabled(false); // Disable the button when clicked
+    setButtonEnabled(false);
   };
 
   useEffect(() => {
     if (countdown > 0) {
       const timer = setInterval(() => {
         setCountdown(countdown - 1);
-      }, 1000); // 1-second countdown interval
+      }, 1000);
 
       return () => clearInterval(timer);
     } else if (countdown === 0 && location === null && !buttonEnabled) {
@@ -47,17 +69,17 @@ const SOSButton = () => {
         setLocation({ latitude, longitude });
 
         const sosData = {
-          user_id: userId, // Replace with actual user ID
-          incident_mode: 1, // Replace with actual incident mode
+          user_id: userId,
+          incident_mode: 1,
           description: 'SOS',
-          latitude, // Corrected spelling from 'lattitude'
+          latitude,
           longitude,
         };
 
         try {
           const response = await axios.post('http://192.168.1.116:3001/newsosalert', sosData);
-          setSosDetails(sosData); // Save SOS details
-          setModalVisible(true); // Show modal on success
+          setSosDetails(sosData);
+          setModalVisible(true);
           setButtonEnabled(true);
         } catch (error) {
           Alert.alert('Error', 'Failed to send SOS alert');
@@ -67,7 +89,7 @@ const SOSButton = () => {
       },
       error => {
         console.error('Error getting location:', error);
-        setButtonEnabled(true); // Re-enable the button even if there is an error
+        setButtonEnabled(true);
         Alert.alert('Error', 'Error getting location');
       },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 10000 }
@@ -80,9 +102,52 @@ const SOSButton = () => {
     navigation.navigate('Reportincident');
   };
 
-  // Function to open the dialer
   const dialSecurityNumber = () => {
     Linking.openURL(`tel:${securityNumber}`);
+  };
+
+  const recordAudio = async () => {
+    await requestPermissions();
+    try {
+      const path = Platform.select({
+        ios: 'hello.m4a',
+        android: '/sdcard/hello.mp4',
+      });
+      await audioRecorderPlayer?.startRecorder(path);
+      audioRecorderPlayer.addRecordBackListener(e => {
+        console.log('Recording time: ', e.current_position);
+        return;
+      });
+    } catch (error) {
+      console.error('Audio recording error: ', error);
+    }
+  };
+
+  const stopRecordingAudio = async () => {
+    const result = await audioRecorderPlayer.stopRecorder();
+    audioRecorderPlayer.removeRecordBackListener();
+    console.log('Audio file path: ', result);
+    // You can send the file to the backend here
+  };
+
+  const recordVideo = async () => {
+    await requestPermissions();
+    launchCamera(
+      {
+        mediaType: 'video',
+        videoQuality: 'high',
+      },
+      response => {
+        if (response.didCancel) {
+          console.log('User cancelled video recording');
+        } else if (response.errorCode) {
+          console.log('Video recording error: ', response.errorMessage);
+        } else {
+          console.log('Video file path: ', response.uri);
+          // You can send the video file to the backend here
+        }
+      }
+    );
   };
 
   return (
@@ -101,7 +166,6 @@ const SOSButton = () => {
         <Text style={styles.nextbtn}>Next</Text>
       </TouchableOpacity>
 
-      {/* Modal for SOS details */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -109,11 +173,9 @@ const SOSButton = () => {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalView}>
-          {/* Card for security details */}
           <View style={styles.card}>
             <Text style={styles.cardText}>The Security is on the way</Text>
 
-            {/* Clickable security number */}
             <TouchableOpacity onPress={dialSecurityNumber}>
               <Text style={[styles.cardText, styles.linkText]}>
                 Security Number: {securityNumber}
@@ -126,6 +188,20 @@ const SOSButton = () => {
             onPress={() => setModalVisible(false)}
           >
             <Text style={styles.closeButtonText}>Close</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.recordButton}
+            onPress={recordAudio}
+          >
+            <Text style={styles.recordButtonText}>Record Audio</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.recordButton}
+            onPress={recordVideo}
+          >
+            <Text style={styles.recordButtonText}>Record Video</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -173,12 +249,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.6)',
     padding: 20,
   },
-  modalTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#fff',
-  },
   closeButton: {
     marginTop: 20,
     backgroundColor: '#3B9AB2',
@@ -189,13 +259,23 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
   },
+  recordButton: {
+    marginTop: 10,
+    backgroundColor: 'green',
+    padding: 10,
+    borderRadius: 5,
+  },
+  recordButtonText: {
+    color: '#fff',
+    fontSize: 18,
+  },
   card: {
     backgroundColor: '#f7ddad',
     padding: 15,
     borderRadius: 8,
     marginTop: 20,
-    width: '90%', // Set the width of the card
-    alignItems: 'center', // Center the text
+    width: '90%',
+    alignItems: 'center',
   },
   cardText: {
     color: '#0d0c0d',
