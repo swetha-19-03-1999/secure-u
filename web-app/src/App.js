@@ -7,7 +7,7 @@ import SettingComponent from './components/secureapplication/secureapplication';
 import SignIn from './components/login/login';
 import SignUp2 from './components/login/register';
 import ProfileComponent from './components/profile/profile';
-import WellBeingPage from './components/wellbeing/weelbeing';
+import WellBeingPage from './components/wellbeing/wellbeing2';
 import CommunityPage from './components/community/community';
 import SafeZonePage from './components/safezone/safezone';
 import ProfileSettingsComponent from './components/profilesettings/profileSettings';
