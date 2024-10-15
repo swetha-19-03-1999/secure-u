@@ -17,18 +17,20 @@ import AlertsComponent from './components/alerts/alerts';
 import SafeZoneDetails from './components/safezonedetails/safezone';
 import AddNewSafeZone from './components/safezonedetails/addSafeZone';
 import MyProfileAlerts from './components/profile/myprofilealerts';
+import ForgetPassword from './components/login/ForgetPassword';
 function App() {
   return (
     <BrowserRouter>
    <Routes>
    <Route path='/login' element={<SignIn />}></Route>
    <Route path='/register' element={<SignUp2 />}></Route>
+  <Route path='/forgotPassword' element={<ForgetPassword />}></Route>
    <Route path="/*" element={<SettingComponent />}>
    <Route path='' element={<DashBoardComponent/>}></Route>
     <Route path='home' element={<DashBoardComponent/>}></Route>
     <Route path='alerts' element={<AlertsComponent />}></Route>
   <Route path='myalerts' element={<MyProfileAlerts />}></Route>
-  {/* <Route path='profile' element={<ProfileComponent />}></Route> */}
+  {/* <Route path='profile' element={<ProfileCo mponent />}></Route> */}
   <Route path='profile' element={<ProfileSettingsComponent />}></Route>
   <Route path='wellbeing' element={<WellBeingPage />}></Route>
   <Route path='community' element={<CommunityPage />}></Route>
