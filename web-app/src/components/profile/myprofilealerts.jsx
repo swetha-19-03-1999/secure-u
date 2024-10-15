@@ -86,7 +86,7 @@ const MyProfileAlerts = () => {
                     }
                 )
         }
-
+        fetchAlerts();
         const intervalId = setInterval(fetchAlerts, 10000); // Fetch every 10 seconds
 
         return () => {
@@ -100,7 +100,7 @@ const MyProfileAlerts = () => {
     };
 
     return (
-        <div className="secure-zone-main">
+        <div className="secure-zone-main grey-bg">
             <div>
                 <div className="skyblue-bg page-div text2  text4 text-center">
                     My Alerts

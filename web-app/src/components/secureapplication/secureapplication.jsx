@@ -82,7 +82,7 @@ function SettingComponent({ middleContent }) {
             </Row>
             <Row className="main-page d-flex">
                 <Col xs={3} className="side-navigation">
-                    <div className="Icons">
+                    <div className="Icons" style={{ position: 'fixed' }}>
                         <Link to="/home" className="row_1">
                             <div className="col_1 ">
                                 <MdDashboard className="side_nav_icon" />
@@ -145,7 +145,7 @@ function SettingComponent({ middleContent }) {
                         </Link>
                     </div>
 
-                    <div className="settings">
+                    <div className="settings" style={{ position: 'fixed', bottom: 0 }}>
                         {/* <Link to="/settings" className="row_1">
                             <div className="col_1 ">
                                 <CiSettings className="side_nav_icon" />
@@ -172,7 +172,7 @@ function SettingComponent({ middleContent }) {
                     </div>
                 </Col>
                 <Col className="main-container">
-                    <div className="full-height-cls">
+                    <div className="full-height-cls" style={{ maxHeight: '86vh', marginTop: -2, backgroundColor: '#d9d9d9' }}>
                         <Outlet />
                     </div>
                 </Col>

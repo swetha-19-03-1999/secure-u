@@ -150,7 +150,7 @@ const DashBoardComponent = () => {
     }, [updateUi]);
 
     return (
-        <div className="secure-zone-main">
+        <div className="secure-zone-main grey-bg">
             {/* <div className="bg2 page-div black-text text-center">
                 Secure - <span className="text1"> U</span>
             </div> */}

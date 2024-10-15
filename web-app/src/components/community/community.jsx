@@ -45,7 +45,7 @@ const CommunityPage = () => {
 
     return (
 
-        <div className="">
+        <div className="grey-bg">
             {/* <div className="bg2 page-div black-text text-center">
                 Secure - <span className="text1"> U</span>
             </div> */}

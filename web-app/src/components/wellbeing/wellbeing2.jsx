@@ -17,7 +17,7 @@ import "./weelbeing.css";
 
 const WellbeingResources = () => {
     return (
-        <Container maxWidth="md" style={{ margin: "40px auto" }}>
+        <Container className="grey-bg" maxWidth="md" style={{ margin: "40px auto" }}>
             <div className="weelbeing-img" />
             <Typography variant="h3" align="center" gutterBottom>
                 Wellbeing Resources
