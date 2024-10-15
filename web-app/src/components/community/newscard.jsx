@@ -103,8 +103,11 @@ const handleClose = () => {
             </Menu>
           </IconButton>
         }
-        title={news_title}
-        subheader={getformattedDate(time_stamp)}
+        title={<b style={{ margin: 0, textTransform: 'capitalize' }}>{user_names}</b>}
+        subheader={<>
+        <p style={{ margin: 0, fontSize: 14 }}>{news_title}</p>
+        <p style={{ margin: 0, fontSize: 12, color: 'grey' }}>{getformattedDate(time_stamp)}</p>
+        </>}
       />
       <div className="post-card-media-wrapper">
         <CardMedia
