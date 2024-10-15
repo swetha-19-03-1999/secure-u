@@ -21,7 +21,6 @@ const CommunityPage = () => {
             axios.get("http://localhost:3001/news").then((res) => {
     
                 setNewsList(res.data?.reverse())
-                // console.log(res.data, ">>>>>>>>>")
             }).catch(e => {
                 console.log(e)
             })

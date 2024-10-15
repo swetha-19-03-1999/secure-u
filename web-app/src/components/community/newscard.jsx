@@ -7,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
@@ -21,6 +21,7 @@ import Stack from '@mui/material/Stack';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import SendIcon from '@mui/icons-material/Send';
 import CommentIcon from '@mui/icons-material/Comment';
+import AvatarImg from '../profile/Avatar';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -38,7 +39,7 @@ export default function NewsCard(props) {
   
   const [anchorEl, setAnchorEl] = React.useState(null);
   const {newsDetails}=props
-  const {news_id,user_id,news_image="",news_title="Newsd title",short_description="",long_description="",time_stamp,user_name=""}=newsDetails
+  const {news_id,user_id,news_image="",news_title="Newsd title",short_description="",long_description="",time_stamp,user_name="", user_names = "", user_img = ""}=newsDetails
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -75,9 +76,9 @@ const handleClose = () => {
       <CardHeader 
       className='text-start '
         avatar={
-          <Avatar sx={{ bgcolor: '#3fb6d3' }} aria-label="recipe">
-            {user_name[0]}
-          </Avatar>
+          <AvatarImg sx={{ bgcolor: '#3fb6d3' }} aria-label="recipe" name={user_names} image={user_img}>
+            {user_names[0]}
+          </AvatarImg>
         }
         action={
           <IconButton aria-label="settings">

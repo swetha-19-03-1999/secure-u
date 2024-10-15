@@ -377,7 +377,9 @@ app.post('/add-news-poll', async (req, res) => {
 // Read all News-posts
 app.get('/news', async (req, res) => {
     try {
-        const [rows] = await db.execute('SELECT * FROM news');
+        const [rows] = await db.execute(`
+           SELECT news.*, users.user_name AS user_names, users.user_profile_pic AS user_img FROM news INNER JOIN users ON news.user_id = users.user_id;
+        `);
         res.status(200).json(rows);
     } catch (error) {
         res.status(500).json({ error: error.message });
