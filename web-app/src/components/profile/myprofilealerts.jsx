@@ -51,6 +51,7 @@ const MyProfileAlerts = () => {
                 setUpdateUi(prev => !prev)
                 setToastMessage("Status Updated Succefully");
                 setShowToast(true);
+                setShowModal(false);
             }).catch(e => {
                 console.log(e)
             })

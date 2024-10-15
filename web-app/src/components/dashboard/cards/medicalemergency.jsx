@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SiTicktick } from "react-icons/si";
 import Box from "@mui/material/Box";
 import Avatar from '@mui/material/Avatar';
@@ -24,6 +24,7 @@ const MedicalEmergency = (props) => {
         user_blood_group = "N/A",
         user_medical_condition = "N/A",
         user_special_requirement = "N/A",
+        description = "",
         assigned_contact,
         assigned_name = "N/A",
         assigned_to = 0,
@@ -40,7 +41,14 @@ const MedicalEmergency = (props) => {
         setSelectedStatus(event.target.value);
     };
 
+    // useEffect(() => {
+    //     if(selectedStatus == status){
+    //         setSelectedStatus(status);
+    //     }
+    // }, [status]);
+
     const onAcceptClick = () => {
+        // setSelectedStatus("ASSIGNED");
         onAlertAcceptClick(
             alertDetails,
             localStorage.getItem("userid"),
@@ -87,6 +95,20 @@ const MedicalEmergency = (props) => {
                                     className="form-controlcls bg-white-green "
                                     placeholder=""
                                     value={user_name}
+                                    disabled
+                                />
+                            </Form.Group>
+                            <Form.Group
+                                className="mb-3 form-groupcls"
+                                controlId="exampleForm.ControlInput1"
+                            >
+                                <Form.Label className="form-labelcls">
+                                    Incident Description
+                                </Form.Label>
+                                <Form.Control
+                                    className="form-controlcls bg-white-green "
+                                    placeholder=""
+                                    value={description}
                                     disabled
                                 />
                             </Form.Group>

@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Box from '@mui/material/Box';
 import InputGroup from "react-bootstrap/InputGroup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { stringAvatar } from "../../../helper";
@@ -22,6 +22,7 @@ const SosEmergency = (props) => {
         special_requirements = "N/A",
         assigned_contact,
         assigned_name = "N/A",
+        description = "",
         assigned_to = 0,
         status = "open",
         location,
@@ -32,11 +33,18 @@ const SosEmergency = (props) => {
     } = alertDetails;
     const [selectedStatus, setSelectedStatus] = useState(status);
 
+    // useEffect(() => {
+    //     if(selectedStatus == status){
+    //         setSelectedStatus(status);
+    //     }
+    // }, [status]);
+
     const handleChange = (event) => {
         setSelectedStatus(event.target.value);
     };
 
     const onAcceptClick = () => {
+        // setSelectedStatus("ASSIGNED");
         onAlertAcceptClick(
             alertDetails,
             localStorage.getItem("userid"),
@@ -81,6 +89,20 @@ const SosEmergency = (props) => {
                                 disabled
                                 value={user_name}
                                 readOnly
+                            />
+                        </Form.Group>
+                        <Form.Group
+                            className="mb-3 form-groupcls"
+                            controlId="exampleForm.ControlInput1"
+                        >
+                            <Form.Label className="form-labelcls">
+                                Incident Description
+                            </Form.Label>
+                            <Form.Control
+                                className="form-controlcls bg-white-green "
+                                placeholder=""
+                                value={description}
+                                disabled
                             />
                         </Form.Group>
                         <Form.Group

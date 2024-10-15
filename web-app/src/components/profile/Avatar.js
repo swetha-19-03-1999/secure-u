@@ -5,7 +5,6 @@ import Avatar from '@mui/material/Avatar';
 function AvatarImg({ image, name, size }) {
 
   let sx = size ? { width: size, height: size } : {  };
-  console.log(image, name, size, ">>>>>> Avatar")
   return (
     
         image ? 

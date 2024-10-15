@@ -87,6 +87,7 @@ const DashBoardComponent = () => {
                     setUpdateUi((prev) => !prev);
                     setToastMessage("Status Updated Succefully");
                     setShowToast(true);
+                    setShowModal(false);
                 })
                 .catch((e) => {
                     console.log(e);
@@ -101,7 +102,7 @@ const DashBoardComponent = () => {
         window.open(googleMapsUrl, "_blank");
     };
 
-    useEffect(() => {
+    const getAllAlerts = () => {
         axios
             .get("http://localhost:3001/security-alerts")
             .then((res) => {
@@ -120,7 +121,11 @@ const DashBoardComponent = () => {
                 setApiStatus(apiSatusCodes.FAILED);
                 console.log("No Data Found");
             });
+    }
 
+    useEffect(() => {
+        
+        getAllAlerts();
         const fetchAlerts = () => {
             const previousAlertsLength = localStorage.getItem(
                 "secure_alerts_length"
@@ -166,6 +171,7 @@ const DashBoardComponent = () => {
                             {alerts.map((each) => {
                                 return (
                                     <MiniCards
+                                        key={each.alert_id}
                                         alertDetails={each}
                                         onViewClick={onViewClick}
                                     />

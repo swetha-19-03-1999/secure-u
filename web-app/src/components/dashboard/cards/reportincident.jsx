@@ -2,7 +2,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { stringAvatar } from "../../../helper";
@@ -24,6 +24,7 @@ const ReportIncident = (props) => {
         assigned_first_name = "N/A",
         assigned_last_name = "",
         assigned_to = 0,
+        description = "",
         status = "open",
         location,
         lattitude,
@@ -52,8 +53,14 @@ const ReportIncident = (props) => {
     const handleChange = (event) => {
         setSelectedStatus(event.target.value);
     };
+    // useEffect(() => {
+    //     if(selectedStatus == status){
+    //         setSelectedStatus(status);
+    //     }
+    // }, [status]);
 
     const onAcceptClick = () => {
+        // setSelectedStatus("ASSIGNED");
         onAlertAcceptClick(
             alertDetails,
             localStorage.getItem("userid"),
@@ -93,6 +100,20 @@ const ReportIncident = (props) => {
                                 placeholder=""
                                 disabled
                                 value={user_name}
+                            />
+                        </Form.Group>
+                        <Form.Group
+                            className="mb-3 form-groupcls"
+                            controlId="exampleForm.ControlInput1"
+                        >
+                            <Form.Label className="form-labelcls">
+                                Incident Description
+                            </Form.Label>
+                            <Form.Control
+                                className="form-controlcls bg-white-green "
+                                placeholder=""
+                                value={description}
+                                disabled
                             />
                         </Form.Group>
                         <Form.Group
