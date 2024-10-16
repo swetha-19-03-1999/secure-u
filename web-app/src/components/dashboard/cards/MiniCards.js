@@ -27,7 +27,7 @@ function MiniCards({ alertDetails, onViewClick }) {
     assigned_to = 0,
     status = "open",
     location,
-    lattitude,
+    latitude,
     longitude,
     alert_type = "theft",
     timestamp,

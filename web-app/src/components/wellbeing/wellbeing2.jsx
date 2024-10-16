@@ -145,11 +145,11 @@ const WellbeingResources = () => {
                     Submit Feedback
                 </Link>
             </Button>
-            <Button variant="outlined" color="secondary" sx={{ mt: 2, ml: 2 }}>
+            {/* <Button variant="outlined" color="secondary" sx={{ mt: 2, ml: 2 }}>
                 <Link href="#" color="inherit" underline="none">
                     Request a Topic
                 </Link>
-            </Button>
+            </Button> */}
         </Container>
     );
 };

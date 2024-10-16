@@ -7,14 +7,15 @@ import SOSButton from './SOSButton';
 import ReportIncidentButton from './ReportIncidents';
 import HomePage from './HomePage';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({route, navigation}) => {
+  const profileImage = route?.params?.user_profileImage;
   return (
     <View style={styles.container}>
-      <HeaderComponent/>
+      <HeaderComponent user_profileImage={profileImage}/>
       <HomePage/>
       {/* <SOSButton/> */}
       {/* <ReportIncidentButton/> */}
-      <BottomNavigation/>
+      <BottomNavigation user_profileImage={profileImage} />
     </View>
   );
 };

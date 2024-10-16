@@ -16,6 +16,10 @@ const MedicalEmergencyButton = () => {
     setButtonEnabled(false); // Disable the button when clicked
   };
 
+  useEffect(()=>{
+    handleSOSPress();
+  },[])
+
   useEffect(() => {
     if (countdown > 0) {
       const timer = setInterval(() => {
@@ -103,9 +107,9 @@ db.transaction(tx => {
         </TouchableOpacity>
         {countdown > 0 && <Text style={styles.countdownText}>Sec:{countdown}</Text>}
       </View>
-      <TouchableOpacity onPress={handleNext}>
+      {/* <TouchableOpacity onPress={handleNext}>
         <Text style={styles.nextbtn}>Next</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

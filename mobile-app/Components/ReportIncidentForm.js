@@ -158,6 +158,10 @@ const IncidentReportScreen = () => {
         setModalVisible(false);
     };
 
+    useEffect(()=>{
+        setShowForm(true);
+      },[])
+
     return (
         <View style={styles.container}>
             {!showForm ? (
@@ -165,9 +169,9 @@ const IncidentReportScreen = () => {
                     <TouchableOpacity style={styles.roundButton} onPress={() => setShowForm(true)}>
                         <Text style={styles.buttonText}>Report Incident</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={handleNext}>
+                    {/* <TouchableOpacity onPress={handleNext}>
                         <Text style={styles.nextbtn}>Next</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             ) : (
                 <View style={styles.formWrapper}>

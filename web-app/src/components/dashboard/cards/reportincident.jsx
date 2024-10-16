@@ -27,7 +27,7 @@ const ReportIncident = (props) => {
         description = "",
         status = "open",
         location,
-        lattitude,
+        latitude,
         longitude,
         alert_type = "theft",
         timestamp,
@@ -82,7 +82,7 @@ const ReportIncident = (props) => {
                     <Typography
                         variant="h5"
                     >
-                        Medical Emergency
+                        Report Incident
                     </Typography>
                     <AvatarImg image={user_profile_pic} name={user_name} />
                 </Col>

@@ -7,7 +7,7 @@ import SQLite from 'react-native-sqlite-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 
 const ProfileDetails1 = ({ route,navigation }) => {
-   // const {userId} = route.params;
+   const { user_profileImage } = route?.params;
     const [formData, setFormData] = useState({
         user_id: '',
         user_university_name: '',
@@ -167,7 +167,7 @@ const ProfileDetails1 = ({ route,navigation }) => {
 
     return (
         <View style={styles.container}>
-            <HeaderComponent />
+            <HeaderComponent user_profileImage={user_profileImage} />
             <ScrollView>
                 <Text style={styles.header}>Profile</Text>
                 <View style={styles.inputContainer}>
@@ -226,7 +226,7 @@ const ProfileDetails1 = ({ route,navigation }) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <BottomNavigation />
+                <BottomNavigation user_profileImage={user_profileImage} />
             </ScrollView>
 
             {/* Modal for Image Upload Options */}

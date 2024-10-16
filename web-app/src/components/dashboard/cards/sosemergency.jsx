@@ -26,7 +26,7 @@ const SosEmergency = (props) => {
         assigned_to = 0,
         status = "open",
         location,
-        lattitude = "no data",
+        latitude = "no data",
         longitude = "no data",
         assigned_first_name = "N/A",
         assigned_last_name = "",
@@ -60,7 +60,7 @@ const SosEmergency = (props) => {
         );
     };
     const handleNavigate = () => {
-        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lattitude},${longitude}`;
+        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
         window.open(googleMapsUrl, "_blank");
     };
     return (

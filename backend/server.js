@@ -72,7 +72,7 @@ app.post('/login', async (req, res) => {
     const {user_email, user_password} = req.body;
     try {
         const [result] = await db.execute(
-            'SELECT user_id , user_name FROM users WHERE user_email = ? AND user_password = ?',
+            'SELECT user_id , user_name , user_profile_pic, user_emergency_contact_number  FROM users WHERE user_email = ? AND user_password = ?',
             [ user_email, user_password]
         );
         res.status(200).json(result);
@@ -80,6 +80,26 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+// get specific user
+app.get('/user-info', async (req, res) => {
+    const { user_id } = req.query; // Extract user_id from query string
+    try {
+        const [result] = await db.execute(
+            'SELECT user_profile_pic, user_emergency_contact_number FROM users WHERE user_id = ?',
+            [user_id]
+        );
+
+        if (result.length > 0) {
+            res.status(200).json(result[0]); // Return the first result
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // Read all users
 app.get('/users', async (req, res) => {
     try {
@@ -208,7 +228,7 @@ app.get('/newsposts', async (req, res) => {
     try {
         // Modified query to join news and users tables
         const [rows] = await db.execute(`
-           SELECT news.*, users.user_name AS user_names FROM news INNER JOIN users ON news.user_id = users.user_id;
+           SELECT news.*, users.user_name AS user_names, users.user_profile_pic AS user_img FROM news INNER JOIN users ON news.user_id = users.user_id;
         `);
         res.status(200).json(rows);
     } catch (error) {

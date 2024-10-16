@@ -4,13 +4,14 @@ import HeaderComponent from '../Header';
 import BottomNavigation from '../bottom_nav';
 import SQLite from 'react-native-sqlite-storage';
 
-const ProfileThanku= ({ navigation }) => {
+const ProfileThanku= ({ route, navigation }) => {
+    const { user_profileImage } = route?.params;
     const handleNext = async () => {
         navigation.navigate('Home'); // Navigate to the NextScreen
       };
     return (
         <View style={styles.container}>
-            <HeaderComponent />
+            <HeaderComponent user_profileImage={user_profileImage} />
             <Text style={styles.header}>Profile</Text>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>Thank You !</Text>
@@ -20,7 +21,7 @@ const ProfileThanku= ({ navigation }) => {
                         <Text style={styles.buttonText}>Done</Text>
                     </TouchableOpacity>
                 </View>
-            <BottomNavigation />
+            <BottomNavigation user_profileImage={user_profileImage} />
         </View>
     );
 };

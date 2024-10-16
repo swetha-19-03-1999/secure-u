@@ -28,11 +28,6 @@ import ForgotPasswordScreen from './Components/ForgotPasswordScreen';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-
-
-
-
-  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Splash">
