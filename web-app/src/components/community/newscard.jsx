@@ -194,9 +194,9 @@ export default function NewsCard(props) {
                         <CardActions disableSpacing>
                             <p>View Comments</p>
                             <ExpandMore
-                                expand={true}
+                                expand={expanded}
                                 onClick={handleExpandClick}
-                                aria-expanded={true}
+                                aria-expanded={expanded}
                                 aria-label="show more"
                             >
                                 <ExpandMoreIcon />
