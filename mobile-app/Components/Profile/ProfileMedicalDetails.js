@@ -34,10 +34,10 @@ const ProfileMedicalDetails= ({ route, navigation }) => {
 
             tx.executeSql('SELECT * FROM users', [], (tx, results) => {
                 const rows = results.rows;
-                console.log("hhhh2")
+                
 
                 for (let i = 0; i < rows.length; i++) {
-                    console.log("hhhh3")
+                    
                     userIds=rows.item(i).user_id;
                     console.log("data getting :: "+rows.item(i));
                     setUserId(rows.item(i).user_id);
