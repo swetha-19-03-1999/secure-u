@@ -138,7 +138,7 @@ const AlertsComponent = () => {
                                                         </div>
 
                                                     }
-                                                    <Button className="navigate-btn " onClick={() => { handleNavigate(each.lattitude, each.longitude) }} >Navigate</Button>
+                                                    <Button className="navigate-btn " onClick={() => { handleNavigate(each.latitude, each.longitude) }} >Navigate</Button>
                                                 </div>
 
                                             </Card.Body>

@@ -1,15 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, ScrollView, ActivityIndicator, Alert } from 'react-native';
+import SQLite from 'react-native-sqlite-storage';
 import HeaderComponent from './Header';
 import BottomNavigation from './bottom_nav';
 import axios from 'axios';
 
-const SecureZoneComponent = () => {
+const SecureZoneComponent = ({route}) => {
+    const profileImage = route?.params?.user_profileImage;
+    const [userInfo, setUserInfo] = useState({});
+    const [userId, setUserId] = useState(0);
     const [selectedZone, setSelectedZone] = useState(null);
 
     const [safeZonedata, setSafeZoneData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // Function to get the user ID from the local SQLite database
+        const getUserId = () => {
+            const db = SQLite.openDatabase({ name: 'mydb.db' });
+    
+            db.transaction(tx => {
+                tx.executeSql('SELECT * FROM users', [], (tx, results) => {
+                    if (results.rows.length > 0) {
+                        const userIdFromDb = results.rows.item(0).user_id;
+                        setUserId(userIdFromDb); // Set the user ID in state
+                    }
+                });
+            });
+        };
+    
+        // Call the function to get the user ID
+        getUserId();
+    }, []);
+    
+    useEffect(() => {
+        if (userId) {
+            // Make the API request only after userId is set
+            axios.get(`http://192.168.1.116:3001/user-info?user_id=${userId}`)
+                .then(response => {
+                    setUserInfo(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }, [userId]);
 
     useEffect(() => {
         // Define an async function to fetch data
@@ -77,14 +113,14 @@ const SecureZoneComponent = () => {
 
     return (
         <View style={styles.container}>
-            <HeaderComponent />
+            <HeaderComponent user_profileImage={profileImage || userInfo.user_profileImage} />
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Secure Zones</Text>
             </View>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 {selectedZone ? renderDetails() : renderList()}
             </ScrollView>
-            <BottomNavigation />
+            <BottomNavigation user_profileImage={profileImage || userInfo.user_profileImage} />
         </View>
     );
 };

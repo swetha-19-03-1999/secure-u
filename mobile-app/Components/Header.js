@@ -3,7 +3,8 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Pressable, TouchableWithoutFeedback } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 
-const HeaderComponent = () => {
+const HeaderComponent = ({user_profileImage}) => {
+  console.log(user_profileImage,'pic');
   const navigation =  useNavigation();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -38,7 +39,11 @@ const HeaderComponent = () => {
 
       {/* Profile image and dropdown trigger */}
       <TouchableOpacity onPress={toggleDropdown}>
-        <Image source={require('./Images/profile.jpg')} style={styles.profile} />
+        {
+          user_profileImage ?
+          <Image source={{ uri: "http://192.168.1.116:3001/" + user_profileImage }} style={styles.profile} />
+          : <Image source={require('./Images/profile.jpg')} style={styles.profile} />
+        }
       </TouchableOpacity>
 
       {/* Dropdown menu */}

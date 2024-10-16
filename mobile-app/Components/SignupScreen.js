@@ -30,12 +30,6 @@ const SignUpScreen = ({ navigation }) => {
         
         // Communicate with backend
         try {
-
-            console.log(JSON.stringify({
-                user_name:user_name,
-                user_email:user_email,
-                user_password:user_password,
-            }))
             const response = await axios.post('http://192.168.1.116:3001/users',{
                 user_name:user_name,
                 user_email:user_email,

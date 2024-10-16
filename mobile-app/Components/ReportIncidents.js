@@ -14,9 +14,9 @@ const ReportIncidentButton = () => {
       <TouchableOpacity style={styles.button} >
         <Text style={styles.buttonText}>Report Incidents</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleNext}>
+      {/* <TouchableOpacity onPress={handleNext}>
         <Text style={styles.nextbtn}>Next</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

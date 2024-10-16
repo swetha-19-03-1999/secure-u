@@ -102,10 +102,33 @@ const DashBoardComponent = () => {
         window.open(googleMapsUrl, "_blank");
     };
 
-    const getAllAlerts = () => {
+    // const getAllAlerts = () => {
+    //     axios
+    //         .get("http://localhost:3001/security-alerts")
+    //         .then((res) => {
+    //             setApiStatus(apiSatusCodes.SUCCESS);
+    //             if (Array.isArray(res.data)) {
+    //                 setAlerts(res.data.reverse());
+    //                 localStorage.setItem(
+    //                     "secure_alerts_length",
+    //                     res.data.length
+    //                 );
+    //             } else {
+    //                 setAlerts([]);
+    //             }
+    //         })
+    //         .catch((e) => {
+    //             setApiStatus(apiSatusCodes.FAILED);
+    //             console.log("No Data Found");
+    //         });
+    // }
+
+    useEffect(() => {
+        
         axios
             .get("http://localhost:3001/security-alerts")
             .then((res) => {
+                console.log(">>>>>>>>>>>>", JSON.parse(JSON.stringify(res.data)))
                 setApiStatus(apiSatusCodes.SUCCESS);
                 if (Array.isArray(res.data)) {
                     setAlerts(res.data.reverse());
@@ -121,11 +144,6 @@ const DashBoardComponent = () => {
                 setApiStatus(apiSatusCodes.FAILED);
                 console.log("No Data Found");
             });
-    }
-
-    useEffect(() => {
-        
-        getAllAlerts();
         const fetchAlerts = () => {
             const previousAlertsLength = localStorage.getItem(
                 "secure_alerts_length"

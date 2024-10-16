@@ -5,7 +5,8 @@ import BottomNavigation from '../bottom_nav';
 import axios from 'axios';
 import SQLite from 'react-native-sqlite-storage';
 
-const ProfileMedicalDetails= ({ navigation }) => {
+const ProfileMedicalDetails= ({ route, navigation }) => {
+    const { user_profileImage } = route?.params;
     //const userId = ; // Replace with the actual user ID
 
     const [formData, setFormData] = useState({
@@ -90,7 +91,7 @@ const ProfileMedicalDetails= ({ navigation }) => {
     //   };
     return (
         <View style={styles.container}>
-            <HeaderComponent />
+            <HeaderComponent user_profileImage={user_profileImage} />
             <ScrollView>
             <Text style={styles.header}>Profile</Text>
             <View style={styles.inputContainer}>
@@ -123,7 +124,7 @@ const ProfileMedicalDetails= ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <BottomNavigation />
+            <BottomNavigation user_profileImage={user_profileImage} />
             </ScrollView>
         </View>
     );

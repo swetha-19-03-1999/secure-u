@@ -6,7 +6,8 @@ import BottomNavigation from './bottom_nav';
 import axios from 'axios';
 import SQLite from 'react-native-sqlite-storage';
 
-const IncidentTrackerComponent = () => {
+const IncidentTrackerComponent = ({route}) => {
+    const { user_profileImage } = route?.params;
     const [incidents, setIncidents] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -67,7 +68,7 @@ const IncidentTrackerComponent = () => {
     }
     return (
         <View style={styles.container}>
-            <HeaderComponent />
+            <HeaderComponent user_profileImage={user_profileImage}/>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Incident Tracker</Text>
             </View>
@@ -105,7 +106,7 @@ const IncidentTrackerComponent = () => {
                     </View>
                 </View>
             </Modal>
-            <BottomNavigation />
+            <BottomNavigation user_profileImage={user_profileImage} />
         </View>
     );
 };

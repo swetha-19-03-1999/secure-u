@@ -2,31 +2,33 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Alert, Image} from 'react-native';
 
-const BottomNavigation = ({}) => {
- const navigation =  useNavigation()
+const BottomNavigation = ({ user_profileImage }) => {
+  // const { user_profileImage = '' } = route?.params;
+  console.log(user_profileImage,'user_profileImage')
+ const navigation =  useNavigation();
   
   const handlePressHome = () =>{
-    navigation.navigate('Home');
+    navigation.navigate('Home',{ user_profileImage });
   }
 
   const handlePressProfile = () =>{
-    navigation.navigate('Profile');
+    navigation.navigate('Profile',{ user_profileImage });
   }
 
   const handlePressWellbeing = () =>{
-    navigation.navigate('Wellbeing');
+    navigation.navigate('Wellbeing',{ user_profileImage });
   }
 
   const handlePressIncidenttracker = () =>{
-    navigation.navigate('Incidenttracker');
+    navigation.navigate('Incidenttracker',{ user_profileImage });
   }
 
   const handlePressSecureZone = () =>{
-    navigation.navigate('Securezone');
+    navigation.navigate('Securezone',{ user_profileImage });
   }
 
   const handlePressCommunity = () =>{
-    navigation.navigate('Community');
+    navigation.navigate('Community',{ user_profileImage });
   }
   
   

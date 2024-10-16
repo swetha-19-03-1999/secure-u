@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { Alert, View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Importing the icon library
 import axios from 'axios';
+import ImagePicker from 'react-native-image-crop-picker';
+import SQLite from 'react-native-sqlite-storage';
 import HeaderComponent from './Header';
 import BottomNavigation from './bottom_nav';
 
-const App = () => {
+const App = ({route}) => {
+    const { user_profileImage } = route?.params;
     const [posts, setPosts] = useState([]);
     const [isAddingPost, setIsAddingPost] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [newsTitle, setNewsTitle] = useState('');
+    const [newsImage, setNewsImage] = useState(null); // Change to single image state
+    const [longDescription, setLongDescription] = useState('');
+    const [newsType, setNewsType] = useState(null);
     const [likes, setLikes] = useState({}); // State to track likes (toggling like/unlike)
     const [comments, setComments] = useState({}); // State to track comments
     const [commentInput, setCommentInput] = useState(''); // State for comment input
@@ -24,6 +32,91 @@ const App = () => {
         }
     }, [isAddingPost]);
 
+    const handleSave = () => {
+        //setUserId(2);
+        setNewsType("2");
+        const db = SQLite.openDatabase({ name: 'mydb.db', location: 'default' });
+        db.transaction(tx => {
+            tx.executeSql('SELECT * FROM users', [], (tx, results) => {
+                const rows = results.rows;
+                for (let i = 0; i < rows.length; i++) {
+                    console.log("hhhh3")
+                    userIds=rows.item(i).user_id;
+                    console.log("data getting :: "+rows.item(i));
+                    setUserId(rows.item(i).user_id);
+                }
+               
+            });
+        });
+        // Create a FormData object to hold the data
+        const formData = new FormData();
+        formData.append('user_id', userIds);
+        formData.append('news_title', newsTitle);
+        formData.append('long_description', longDescription);
+        formData.append('news_type', "IMAGE");
+        // Append the image file
+        if (newsImage) {
+            formData.append('news_image', {
+                uri: newsImage,
+                type: 'image/jpeg', // or the correct type of your image
+                name: 'photo.jpg', // provide a name for the image file
+            });
+        }
+        axios.post('http://192.168.1.116:3001/addnewNews', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+        .then(response => {
+            Alert.alert('Success', 'Post added successfully!');
+            setIsAddingPost(false);
+            setLongDescription('');
+            setNewsTitle('');
+            setNewsImage(null); // Reset image after saving 
+        })
+        .catch(error => {
+            console.error(error);
+            Alert.alert('Error', 'Failed to add post.' + error);
+            setLongDescription('');
+            setNewsTitle('');
+            setNewsImage(null); // Reset image on error
+        });
+    };
+    const handleImagePicker = () => {
+        Alert.alert(
+            'Select Image',
+            'Choose an option',
+            [
+                { text: 'Camera', onPress: () => openCamera() },
+                { text: 'Gallery', onPress: () => openGallery() },
+                { text: 'Cancel', style: 'cancel' },
+            ]
+        );
+    };
+    const openGallery = () => {
+        ImagePicker.openPicker({
+            mediaType: 'photo',
+            cropping: true,
+        }).then(image => {
+            setNewsImage(image.path); // Set single image
+        }).catch(error => {
+            if (error.code !== 'E_PICKER_CANCELLED') {
+                console.log('ImagePicker Error: ', error);
+            }
+        });
+    };
+    const openCamera = () => {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+        }).then(image => {
+            setNewsImage(image.path); // Set single image
+        }).catch(error => {
+            console.log('Camera Error: ', error);
+        });
+    };
+
     // Handle Like Toggle
     const handleLike = (postId) => {
         setLikes((prevLikes) => ({
@@ -31,6 +124,10 @@ const App = () => {
             [postId]: !prevLikes[postId], // Toggle like/unlike
         }));
     };
+
+    const removeImage = () => {
+        setNewsImage(null); // Reset image on remove
+    }
 
     // Handle Add Comment
     const handleAddComment = (postId) => {
@@ -46,18 +143,60 @@ const App = () => {
     if (isAddingPost) {
         return (
             <View style={styles.container}>
-                <HeaderComponent />
+                <HeaderComponent user_profileImage={user_profileImage}/>
                 <View style={styles.headerContainer}>
                     <Text style={styles.headerText}>Community</Text>
                 </View>
-                {/* Add Post Logic */}
+                <ScrollView contentContainerStyle={styles.scrollViewContent}>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity
+                            style={styles.buttonCancel}
+                            onPress={() => setIsAddingPost(false)}
+                        >
+                            <Text style={styles.buttonCancelText}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={handleSave}
+                        >
+                            <Text style={styles.buttonText}>Done</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={styles.addNew}>Add New Post</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Post Title"
+                        value={newsTitle}
+                        onChangeText={setNewsTitle}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Write Something... "
+                        value={longDescription}
+                        onChangeText={setLongDescription}
+                    />
+                    <TouchableOpacity style={styles.imageButton} onPress={handleImagePicker}>
+                        <Text style={styles.imageButtonText}>
+                            Select Image {newsImage ? ` (1)` : ''}
+                        </Text>
+                    </TouchableOpacity>
+                    {newsImage && (
+                        <View style={styles.imageContainer}>
+                            <Image source={{ uri: newsImage }} style={styles.selectedImage} />
+                            <TouchableOpacity style={styles.removeButton} onPress={removeImage}>
+                                <Text style={styles.removeButtonText}>Remove</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                </ScrollView>
+                <BottomNavigation />
             </View>
         );
     }
 
     return (
         <View style={styles.container}>
-            <HeaderComponent />
+            <HeaderComponent user_profileImage={user_profileImage}/>
             <View style={styles.headerContainer}>
                 <Text style={styles.headerText}>Community</Text>
             </View>
@@ -65,7 +204,7 @@ const App = () => {
                 {posts?.map((post, index) => (
                     <View key={index} style={styles.postContainer}>
                         <View style={styles.postHeader}>
-                            <Image source={{ uri: 'http://192.168.1.116:3001/uploads/1727282274054.jpg' }} style={styles.profileImage} />
+                            <Image source={{ uri: 'http://192.168.1.116:3001/' + post.user_img }} style={styles.profileImage} />
                             <View style={styles.userInfo}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <Text style={styles.username}>{post.user_names}</Text>
@@ -114,7 +253,7 @@ const App = () => {
                     </View>
                 ))}
             </ScrollView>
-            <BottomNavigation />
+            <BottomNavigation user_profileImage={user_profileImage} />
             <TouchableOpacity
                 style={styles.floatingButton}
                 onPress={() => setIsAddingPost(true)}
@@ -233,6 +372,80 @@ const styles = StyleSheet.create({
     commentTextDisplay: {
         color: '#000',
         marginVertical: 5,
+    },
+    buttonContainer: {
+        marginTop:30,
+        flexDirection: 'row',
+        marginHorizontal: 20,
+    },
+    button: {
+        backgroundColor: '#3B9AB2',
+        padding: 10,
+        borderRadius: 5,
+        flex: 1,
+        marginLeft: 10,
+    },
+    buttonCancel: {
+        backgroundColor: 'red',
+        padding: 10,
+        borderRadius: 5,
+        flex: 1,
+        marginRight: 10,
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    buttonCancelText: {
+        textAlign: 'center',
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    addNew: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 15,
+        margin: 20,
+    },
+    imageButton: {
+        backgroundColor: '#ddd',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        margin: 20,
+    },
+    imageButtonText: {
+        color: '#000',
+        fontWeight: 'bold',
+    },
+    imageContainer: {
+        marginVertical: 20,
+        alignItems: 'center',
+        marginBottom:150,
+    },
+    selectedImage: {
+        width: 100,
+        height: 100,
+        borderRadius: 10,
+    },
+    removeButton: {
+        marginTop: 10,
+        backgroundColor: 'red',
+        padding: 5,
+        borderRadius: 5,
+    },
+    removeButtonText: {
+        color: '#fff',
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        padding: 10,
+        marginHorizontal: 20,
+        marginBottom: 15,
+        backgroundColor: '#fff',
     },
 });
 
