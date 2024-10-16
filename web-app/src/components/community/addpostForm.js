@@ -37,7 +37,7 @@ const AddPostForm = (props) => {
         console.log(fileURL)
         setNewsImage( file); // Store the file URL in the state
         setNewsTempImage(fileURL)
-      };
+    };
 
     const onOptionsLabelsChange = (e, each, ind, optionsArr) => {
 
@@ -187,7 +187,7 @@ const AddPostForm = (props) => {
                   'Content-Type': 'multipart/form-data',
                 },
               }).then(res => {
-                setToastMessage("New poast Added successfuly");
+                setToastMessage("New post Added successfuly");
 
                 setShowToast(true);
                 handleClose()

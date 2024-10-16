@@ -4,6 +4,7 @@ import './profilesettings.css'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ToastMessageComponent from '../toast/toastmessage';
+import ProfileImageUploader from '../profile/ProfileImageUploader';
 
 const ProfileSettingsComponent = () => {
     const [userDetails, setUserDetails] = useState({
@@ -11,7 +12,8 @@ const ProfileSettingsComponent = () => {
         last_name: "",
         user_contact_number: "",
         user_email_id: "",
-        user_dob: "", user_university_name: "", employ_id: ""
+        user_dob: "", user_university_name: "", employ_id: "",
+        employ_photo: ""
     })
     const [updateUI, setUpdateUI] = useState(true)
     const [showToast, setShowToast] = useState(false)
@@ -108,7 +110,7 @@ const ProfileSettingsComponent = () => {
     }
     useEffect(() => {
         const userId = localStorage.getItem('userid')
-        axios.get(`http://localhost:3001/admin-users/${userId}`).then((res) => { setUserDetails(res.data) }).catch((e) => {
+        axios.get(`http://localhost:3001/admin-users/${userId}`).then((res) => { console.log(res.data); setUserDetails(res.data) }).catch((e) => {
             console.log(e)
 
         })
@@ -161,7 +163,9 @@ const ProfileSettingsComponent = () => {
                 <h1 className="text1 mt-2
             mb-4">Settings</h1>
                 <p className="text1 m-0">Profile </p>
-                <p className="plain-text">Update your photo and personal details here</p>
+                <p className="plain-text">
+                    <ProfileImageUploader image={userDetails?.employ_photo} />
+                </p>
                 <Form className="setting-form" onSubmit={onSubmitUpdateProfileSettings}>
                     <div className="d-flex">
 
@@ -226,12 +230,12 @@ const ProfileSettingsComponent = () => {
                             </Form.Group>
                         </div>
                         <div className="mt-4  w-100 d-flex align-items-end flex-1 justify-content-between">
-                            <div className='yourphoto ' >
+                            {/* <div className='yourphoto ' >
                                 <p className="m-0">Your Photo</p>
                                 <p className="plain-text">
                                     This will be displayed on your profile
                                 </p>
-                            </div>
+                            </div> */}
                             <div className="d-flex align-items-end ">
                                 <Button className="update-btn black-text " onClick={onClickResetChanges}>
                                     Revert changes

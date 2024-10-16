@@ -379,6 +379,23 @@ app.post('/add-news',  upload.single('news_image'),async (req, res) => {
     }
 });
 
+app.post('/add-admin-image',  upload.single('admin_img'),async (req, res) => {
+    const { user_id } = req.body;
+    const admin_image = req.file ?  req.file.path : null;
+
+    console.log('Request Body:', req.body);  // Log the request body
+    console.log('Uploaded File:', req.file);  // Log the file information
+    
+    try {
+        await db.execute('UPDATE admin_users SET employ_photo=? WHERE user_id= ?', 
+           [admin_image, user_id]
+        );
+        res.status(200).json({ message: 'update success'});
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 // Create a new News poll
 app.post('/add-news-poll', async (req, res) => {
