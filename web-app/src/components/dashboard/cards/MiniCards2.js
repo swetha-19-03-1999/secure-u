@@ -47,7 +47,7 @@ const incident = getIncidentDetails(incident_mode);
                     {incident.label}
                 </Typography>
               <div style={{ display: "flex", alignItems: 'center', justifyContent: 'space-evenly' }}>
-                <div>
+                <div style={{ marginLeft: 30 }}>
                   <AvatarImg image={user_profile_pic} name={user_name} size={80} />
                 </div>
                 <div>

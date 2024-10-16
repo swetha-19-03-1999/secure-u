@@ -4,7 +4,7 @@ import Avatar from '@mui/material/Avatar';
 
 function AvatarImg({ image, name, size }) {
 
-  let sx = size ? { width: size, height: size } : {  };
+  let sx = size ? { width: size, height: size, margin: 0 } : {  margin: 0 };
   return (
     
         image ? 

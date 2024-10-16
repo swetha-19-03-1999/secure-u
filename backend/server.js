@@ -395,16 +395,87 @@ app.post('/add-news-poll', async (req, res) => {
 });
 
 // Read all News-posts
+// app.get('/news', async (req, res) => {
+//     try {
+//         const [rows] = await db.execute(`
+//            SELECT news.*, users.user_name AS user_names, users.user_profile_pic AS user_img FROM news INNER JOIN users ON news.user_id = users.user_id;
+//         `);
+//         res.status(200).json(rows);
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+
+// Add likes and comments to news
+function formatDateTime(dateString) {
+    const options = { 
+        day: 'numeric', 
+        month: 'long', 
+        year: '2-digit', 
+        hour: 'numeric', 
+        minute: 'numeric', 
+        hour12: true 
+    };
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+}
+
 app.get('/news', async (req, res) => {
     try {
-        const [rows] = await db.execute(`
-           SELECT news.*, users.user_name AS user_names, users.user_profile_pic AS user_img FROM news INNER JOIN users ON news.user_id = users.user_id;
+        const [news] = await db.execute(`
+            SELECT news.*, users.user_name AS user_names, users.user_profile_pic AS user_img 
+            FROM news 
+            INNER JOIN users ON news.user_id = users.user_id
         `);
-        res.status(200).json(rows);
+
+        // Fetch likes and comments details separately
+        const [likes] = await db.execute(`
+            SELECT l.news_id, l.user_id, u.user_name, u.user_profile_pic AS user_img, l.liked_at 
+            FROM likes l 
+            INNER JOIN users u ON l.user_id = u.user_id
+        `);
+
+        const [comments] = await db.execute(`
+            SELECT c.news_id, c.user_id, c.comment_id, u.user_name, u.user_profile_pic AS user_img, c.comment_text, c.commented_at 
+            FROM comments c 
+            INNER JOIN users u ON c.user_id = u.user_id
+            ORDER BY c.commented_at DESC
+        `);
+
+        // Map the likes and comments to each news item
+        const newsWithEngagement = news.map(newsItem => {
+            const newsLikes = likes
+                .filter(like => like.news_id === newsItem.news_id)
+                .map(like => ({
+                    user_id: like.user_id,
+                    user_name: like.user_name,
+                    user_img: like.user_img,
+                    time: formatDateTime(like.liked_at) // Format the like time
+                }));
+
+            const newsComments = comments
+                .filter(comment => comment.news_id === newsItem.news_id)
+                .map(comment => ({
+                    user_id: comment.user_id,
+                    user_name: comment.user_name,
+                    user_img: comment.user_img,
+                    comment_text: comment.comment_text,
+                    time: formatDateTime(comment.commented_at) // Format the comment time
+                }));
+
+            return {
+                ...newsItem,
+                likes: newsLikes,
+                comments: newsComments
+            };
+        });
+
+        res.status(200).json(newsWithEngagement);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 // Like a news post
 app.post('/like', async (req, res) => {
