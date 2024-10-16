@@ -390,7 +390,7 @@ app.post('/add-admin-image',  upload.single('admin_img'),async (req, res) => {
         await db.execute('UPDATE admin_users SET employ_photo=? WHERE user_id= ?', 
            [admin_image, user_id]
         );
-        res.status(200).json({ message: 'update success'});
+        res.status(200).json({ message: 'update success', img: req.file.path });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -17,11 +17,14 @@ import CommunityPage from "../community/community";
 import { Outlet } from "react-router-dom";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import { TbAlertSquareFilled } from "react-icons/tb";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AvatarImg from "../profile/Avatar";
+import axios from "axios";
 
 function SettingComponent({ middleContent }) {
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
+    const [userDetails, setUserDetails] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -35,6 +38,27 @@ function SettingComponent({ middleContent }) {
         navigate("/login");
         handleClose();
     };
+
+    useEffect(() => {
+        let userId = localStorage.getItem('userid')
+        const fetchProfileDetails = () => {
+            axios
+            .get(`http://localhost:3001/admin-users/${userId}`)
+            .then((res) => {
+                console.log(res.data);
+                setUserDetails(res.data);
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+        };
+        fetchProfileDetails()
+        const intervalId = setInterval(fetchProfileDetails, 5000);
+
+        return () =>{
+            clearInterval(intervalId);
+        }
+    }, []);
 
     return (
         <Container fluid className="app-container ">
@@ -54,7 +78,7 @@ function SettingComponent({ middleContent }) {
                         </div>
 
                         <div className="setting_main ">
-                            <div style={{flex: 1}}>
+                            <div style={{ flex: 1 }}>
                                 <InputGroup>
                                     <InputGroup.Text>
                                         <CiSearch />
@@ -68,11 +92,10 @@ function SettingComponent({ middleContent }) {
                             <div className="d-flex align-items-center ">
                                 <IoNotifications className="side_nav_icon ms-3 me-3" />
                                 <Link to="/profile">
-                                    <Image
-                                        height={40}
-                                        width={40}
-                                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                                        roundedCircle
+                                    <AvatarImg
+                                        image={userDetails?.employ_photo}
+                                        name={userDetails?.user_name}
+                                        size={40}
                                     />
                                 </Link>
                             </div>
@@ -82,7 +105,7 @@ function SettingComponent({ middleContent }) {
             </Row>
             <Row className="main-page d-flex">
                 <Col xs={3} className="side-navigation">
-                    <div className="Icons" style={{ position: 'fixed' }}>
+                    <div className="Icons" style={{ position: "fixed" }}>
                         <Link to="/home" className="row_1">
                             <div className="col_1 ">
                                 <MdDashboard className="side_nav_icon" />
@@ -136,7 +159,7 @@ function SettingComponent({ middleContent }) {
 
                         <Link to="/myalerts" className="row_1">
                             <div className="col_1">
-                            <FaRegUserCircle className="side_nav_icon" />
+                                <FaRegUserCircle className="side_nav_icon" />
                             </div>
 
                             <div className="col_1">
@@ -145,7 +168,10 @@ function SettingComponent({ middleContent }) {
                         </Link>
                     </div>
 
-                    <div className="settings" style={{ position: 'fixed', bottom: 0 }}>
+                    <div
+                        className="settings"
+                        style={{ position: "fixed", bottom: 0 }}
+                    >
                         {/* <Link to="/settings" className="row_1">
                             <div className="col_1 ">
                                 <CiSettings className="side_nav_icon" />
@@ -172,7 +198,14 @@ function SettingComponent({ middleContent }) {
                     </div>
                 </Col>
                 <Col className="main-container">
-                    <div className="full-height-cls" style={{ maxHeight: '86vh', marginTop: -2, backgroundColor: '#d9d9d9' }}>
+                    <div
+                        className="full-height-cls"
+                        style={{
+                            maxHeight: "86vh",
+                            marginTop: -2,
+                            backgroundColor: "#d9d9d9",
+                        }}
+                    >
                         <Outlet />
                     </div>
                 </Col>
