@@ -406,6 +406,75 @@ app.get('/news', async (req, res) => {
     }
 });
 
+// Like a news post
+app.post('/like', async (req, res) => {
+    const { user_id, news_id } = req.body;
+    try {
+        const [rows] = await db.execute(
+            'SELECT * FROM likes WHERE user_id = ? AND news_id = ?',
+            [user_id, news_id]
+        );
+
+        if (rows.length > 0) {
+            return res.status(400).json({ message: 'User has already liked this post.' });
+        }
+
+        // Insert like into the table
+        await db.execute('INSERT INTO likes (user_id, news_id) VALUES (?, ?)', [user_id, news_id]);
+        res.json({ message: 'News post liked successfully.' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+// Dislike (unlike) a news post
+app.post('/dislike', async (req, res) => {
+    const { user_id, news_id } = req.body;
+    console.log("I am here >>>>>>>",  {user_id, news_id});
+    try {
+        // Check if the like exists
+        const [rows] = await db.execute(
+            'SELECT * FROM likes WHERE user_id = ? AND news_id = ?',
+            [user_id, news_id]
+        );
+
+        if (rows.length === 0) {
+            return res.status(400).json({ message: 'User has not liked this post.' });
+        }
+
+        // Delete the like from the table
+        await db.execute('DELETE FROM likes WHERE user_id = ? AND news_id = ?', [user_id, news_id]);
+        res.json({ message: 'News post unliked successfully.' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Add a comment to a news post
+app.post('/comment', async (req, res) => {
+    const { user_id, news_id, comment_text } = req.body;
+
+    // Ensure all required fields are present
+    if (!user_id || !news_id || !comment_text) {
+        return res.status(400).json({ message: 'user_id, news_id, and comment_text are required.' });
+    }
+
+    try {
+        // Insert the comment into the table
+        const query = `INSERT INTO comments (user_id, news_id, comment_text, commented_at)
+                       VALUES (?, ?, ?, CURRENT_TIMESTAMP)`;
+        await db.execute(query, [user_id, news_id, comment_text]);
+
+        res.json({ message: 'Comment added successfully.' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Read News by user id
 app.get('/profile/news/:userid', async (req, res) => {
     const { userid } = req.params;
