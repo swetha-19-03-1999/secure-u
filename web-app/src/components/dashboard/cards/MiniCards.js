@@ -40,7 +40,7 @@ const incident = getIncidentDetails(incident_mode);
 
 
     return (
-        <Card sx={{ maxWidth: 320, margin: "10px", padding: 0, background: incident.color, position: 'relative !important' }}>
+        <Card sx={{ maxWidth: 300, margin: "10px", padding: 0, background: incident.color, position: 'relative !important' }}>
             <CardActionArea>
                 <CardMedia
                     component="img"

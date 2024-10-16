@@ -32,6 +32,11 @@ function AddNewSafeZone(props) {
 
   const onSumbitUpdatedetails = (e) => {
     e.preventDefault();
+    if (!zoneDetails.zone_img)
+    {
+      alert("Image not uploaded");
+      return;
+    }
     const formData = new FormData();
     formData.append('zone_name', zoneDetails.zone_name);
     formData.append('zone_img', zoneDetails.zone_img);  // Make sure this is the file object
@@ -74,10 +79,10 @@ function AddNewSafeZone(props) {
           {/* <div className="bg2 page-div black-text text-center">
             Secure - <span className="text1"> U</span>
           </div> */}
-          <div className="skyblue-bg page-div text2  text4 text-center">
+          {/* <div className="skyblue-bg page-div text2  text4 text-center">
             Safe - Zone
-         </div>
-          <h2>Safe Zone</h2>
+         </div> */}
+          <h2 style={{ marginTop: 10 }}>Safe Zone</h2>
           <p>Update the details of this safe zone region.</p>
         </Col>
 
@@ -115,11 +120,34 @@ function AddNewSafeZone(props) {
                 <Form.Label >Time to be aware</Form.Label>
                 <Form.Control type="text" placeholder="2:00AM" value={zoneDetails.danger_time} name="danger_time" onChange={onchangeInputFields} />
               </Col>
+              
+            <Form.Group controlId="formNote" className="mt-3">
+              <Form.Label column sm={2}>Uploads Image</Form.Label>
+              <Col sm={10}>
+                <Form.Control style={{ width: '85%' }} type="file" placeholder={zone_img} name="note" onChange={onChangefile} />
+              </Col>
+            </Form.Group>
+
+
+            <Form.Group as={Row} className="mt-3">
+              <Col sm={{ span: 10, offset: 2 }}>
+                <img />
+              </Col>
+            </Form.Group>
+            
+          <div>
+            <h2>
+              Photo
+            </h2>
+            <p>Uploade a picture for describing the situation better</p>
+            <Image src={zone_temp_image} className="safeZome-imagecls" />
+          </div>
+
               <Col>
                 <Form.Group as={Row} className="mt-4">
                   <Col >
                     <Button className="butt me-2 ms-5" type="submit">
-                      Add Zone
+                      Add Safe Zone
                     </Button>
                     <Button className='butt'>
                       Cancel
@@ -136,30 +164,7 @@ function AddNewSafeZone(props) {
           </Col>
         </Form.Group> */}
 
-            <Form.Group controlId="formNote" className="mt-3">
-              <Form.Label column sm={2}>Uploads Image</Form.Label>
-              <Col sm={10}>
-                <Form.Control style={{ width: '85%' }} type="file" placeholder={zone_img} name="note" onChange={onChangefile} />
-              </Col>
-            </Form.Group>
-
-
-            <Form.Group as={Row} className="mt-3">
-              <Col sm={{ span: 10, offset: 2 }}>
-                <img />
-              </Col>
-            </Form.Group>
-
-
           </Form>
-
-          <div>
-            <h2>
-              Photo
-            </h2>
-            <p>Uploade a picture for describing the situation better</p>
-            <Image src={zone_temp_image} className="safeZome-imagecls" />
-          </div>
         </Col>
       </Row>
       <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide position="top-center">

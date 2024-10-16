@@ -36,7 +36,7 @@ function ProfileImageUploader({ image }) {
             'Content-Type': 'multipart/form-data',
           },
         }).then(res => {
-          setToastMessage("New post Added successfuly");
+          setToastMessage("Image Uploaded successfuly");
           setShowToast(true);
           // setImgUrlSrc("");
       }
