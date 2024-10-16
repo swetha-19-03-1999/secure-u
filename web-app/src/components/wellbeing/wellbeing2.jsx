@@ -141,7 +141,7 @@ const WellbeingResources = () => {
                 We want to hear from you! If you have any feedback on our wellbeing resources or ideas for future content, let us know. Your input helps us improve this page and provide more targeted support.
             </Typography>
             <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-                <Link href="#" color="inherit" underline="none">
+                <Link href="https://docs.google.com/forms/d/e/1FAIpQLSdnIioa3gKg1aE0Dk70UH5pTvlBjugAGb6JYsX9OUyD1fnSUA/viewform?usp=sf_link" color="inherit" underline="none" target="_blank">
                     Submit Feedback
                 </Link>
             </Button>
