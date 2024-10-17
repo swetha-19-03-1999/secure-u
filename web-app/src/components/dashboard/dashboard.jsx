@@ -172,6 +172,8 @@ const DashBoardComponent = () => {
         }
     }, [updateUi]);
 
+    const filteredAlerts = alerts?.filter((eachAlert) => eachAlert.status !== 'COMPLETED');
+
     return (
         <div className="secure-zone-main grey-bg">
             {/* <div className="bg2 page-div black-text text-center">
@@ -186,7 +188,7 @@ const DashBoardComponent = () => {
                         "loading............"
                     ) : alerts.length > 0 ? (
                         <>
-                            {alerts.map((each) => {
+                            {filteredAlerts.map((each) => {
                                 return (
                                     <MiniCards
                                         key={each.alert_id}
@@ -203,7 +205,7 @@ const DashBoardComponent = () => {
                                 src="https://cdni.iconscout.com/illustration/premium/thumb/no-search-result-illustration-download-in-svg-png-gif-file-formats--results-empty-matches-found-zero-query-ecommerce-states-pack-e-commerce-shopping-illustrations-9741054.png?f=webp"
                                 alt="no posts available"
                             />
-                            <h1>No Alerts found </h1>
+                            <h1>No Current Alerts found </h1>
                         </div>
                     )}
                 </Row>
