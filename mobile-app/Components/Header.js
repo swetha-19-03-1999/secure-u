@@ -42,7 +42,7 @@ const HeaderComponent = ({user_profileImage}) => {
         {
           user_profileImage ?
           <Image source={{ uri: "http://192.168.1.116:3001/" + user_profileImage }} style={styles.profile} />
-          : <Image source={require('./Images/profile.jpg')} style={styles.profile} />
+          : <Image source={require('./Images/Profile.png')} style={styles.profile} />
         }
       </TouchableOpacity>
 

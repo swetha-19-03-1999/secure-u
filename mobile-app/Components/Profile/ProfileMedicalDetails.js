@@ -78,7 +78,7 @@ const ProfileMedicalDetails= ({ route, navigation }) => {
              "user_special_requirement":user_special_requirement,
             "user_id": userIds});
           if (response.status === 204) {
-            navigation.navigate('ProfileThanku');
+            navigation.navigate('ProfileThanku', {user_profileImage: user_profileImage});
           }
         } catch (error) {
           Alert.alert('Error', 'Failed to update Medical details');

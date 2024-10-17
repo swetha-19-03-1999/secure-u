@@ -33,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
                             }
                         });
                     });
-                    Alert.alert('Success', 'Login successful');
+                    // Alert.alert('Success', 'Login successful');
                     if(response.data[0]?.user_profile_pic){
                         navigation.navigate('Home', { user_profileImage: response.data[0].user_profile_pic })
                     }else{

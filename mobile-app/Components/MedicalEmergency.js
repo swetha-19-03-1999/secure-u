@@ -4,6 +4,7 @@ import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import SQLite from 'react-native-sqlite-storage';
+import { getLocation } from './helper/getGeoLocation';
 
 const MedicalEmergencyButton = () => {
   const [countdown, setCountdown] = useState(0);
@@ -54,14 +55,14 @@ db.transaction(tx => {
       async position => {
         const { latitude, longitude } = position.coords;
         setLocation({ latitude, longitude });
-
+        const locations = await getLocation();
 
         const sosData = {
           user_id: userIds, // Replace with actual user ID
           incident_mode: 2, // Replace with actual accident mode
           description: 'Medical Emergency',
-          latitude: latitude,
-          longitude: longitude,
+          latitude: locations.latitude,
+          longitude: locations.longitude,
         };
 
  console.log("everything good medical :: "+JSON.stringify(sosData))

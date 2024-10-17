@@ -154,11 +154,11 @@ const ProfileDetails1 = ({ route,navigation }) => {
             formData2.append('user_student_id', user_student_id);  // Make sure this is the file object
             formData2.append('user_mobile_number', user_mobile_number);
             formData2.append('user_academic_program', user_academic_program);
-            formData2.append('user_id',userIds);
+            formData2.append('user_id',userId);
             formData2.append('user_profile_pic', {
                 uri: imageUri,
                 type: 'image/jpeg', // Adjust type based on image format
-                name: userIds+'.jpg', // You can adjust the filename
+                name: userId+'.jpg', // You can adjust the filename
             });
 
             try{
@@ -169,7 +169,7 @@ const ProfileDetails1 = ({ route,navigation }) => {
                    'Content-Type': 'multipart/form-data', // Set the content type for the request
                },
            }); 
-               navigation.navigate('EmergencyContact');
+               navigation.navigate('EmergencyContact', {user_profileImage: user_profileImage});
            
        } catch (error) {
            Alert.alert('Error', 'Failed to update Profile details');

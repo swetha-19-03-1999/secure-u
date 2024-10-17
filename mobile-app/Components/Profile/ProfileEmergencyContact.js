@@ -97,7 +97,7 @@ console.log("user details :: "+userDetails)
             "user_emergency_contact_name":user_emergency_contact_name,
              "user_emergency_contact_relationship":user_emergency_contact_relationship, 
              "user_emergency_contact_number":user_emergency_contact_number });
-            navigation.navigate('MedicalDetails');
+            navigation.navigate('MedicalDetails', {user_profileImage: user_profileImage});
           
         } catch (error) {
           Alert.alert('Error', 'Failed to update Emergency Contact details');

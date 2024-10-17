@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Using FontAwesome icons
@@ -326,6 +327,7 @@ const App = ({route}) => {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={() => setShowMenu(null)}>
     <View style={styles.container}>
       <HeaderComponent user_profileImage={user_profileImage} />
       <View style={styles.headerContainer}>
@@ -347,7 +349,8 @@ const App = ({route}) => {
               {/* Three-Dot Menu for Post Deletion */}
               {post.user_id === userId && (
                 <TouchableOpacity onPress={() => toggleMenu(post.news_id)}>
-                  <Icon name="ellipsis-v" size={24} color="gray" />
+                  {/* <Icon name="ellipsis-v" size={24} color="gray" /> */}
+                  <Image source={require('./Images/threeDots.png')} style={styles.profile} />
                 </TouchableOpacity>
               )}
 
@@ -382,7 +385,7 @@ const App = ({route}) => {
                     ? handleLike(post.news_id, 'dislike')
                     : handleLike(post.news_id, 'like');
                 }}>
-                <Icon
+                {/* <Icon
                   name={
                     post.likes.some(like => like.user_id === userId)
                       ? 'heart'
@@ -394,7 +397,10 @@ const App = ({route}) => {
                       ? 'red'
                       : 'gray'
                   }
-                />
+                /> */}
+                {post.likes.some(like => like.user_id === userId) ? 
+                <Image source={require('./Images/heart.png')} size={4} style={styles.image} />
+                : <Image source={require('./Images/heart-o.png')} style={styles.image} />}
                 <Text>{post.likes.length} Likes</Text>
               </TouchableOpacity>
 
@@ -402,7 +408,8 @@ const App = ({route}) => {
               <TouchableOpacity
                 style={styles.commentIcon}
                 onPress={() => toggleComments(post.news_id)}>
-                <Icon name="comment-o" size={24} color="gray" />
+                {/* <Icon name="comment-o" size={24} color="gray" /> */}
+                <Image source={require('./Images/comment.png')} style={styles.image} />
                 <Text>{post.comments.length} Comments</Text>
               </TouchableOpacity>
             </View>
@@ -411,11 +418,16 @@ const App = ({route}) => {
             {showComments[post.news_id] && (
               <View style={styles.commentSection}>
                 {post.comments.map((comment, idx) => (
-                  <View key={idx} style={styles.commentContainer}>
-                    <Text style={styles.commentTextDisplay}>
-                      - {comment.comment_text}
-                    </Text>
-                  </View>
+                  <View style={styles.commentContainer}>
+                  <Image
+                    source={{ uri: 'http://192.168.1.116:3001/' + comment.user_img }}
+                    style={styles.commentImage}
+                  />
+                  <Text style={styles.commentTextDisplay}>
+                    {comment.comment_text}
+                  </Text>
+                </View>
+                
                 ))}
                 <TextInput
                   style={styles.commentInput}
@@ -440,6 +452,7 @@ const App = ({route}) => {
         <Text style={styles.floatingButtonText}>+</Text>
       </TouchableOpacity>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -710,6 +723,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
+  image: {
+    width: 30,
+    height: 30,
+    marginRight:4
+  },
   selectedImage: {
     width: 150,
     height: 150,
@@ -755,6 +773,21 @@ const styles = StyleSheet.create({
   buttonSaveText: {
     color: '#fff',
     fontWeight: 'bold',
+  },
+  commentContainer: {
+    flexDirection: 'row', // Align image and text horizontally
+    alignItems: 'center', // Vertically center image and text
+    marginVertical: 10,
+  },
+  commentImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20, // Circular image
+    marginRight: 10, // Space between image and text
+  },
+  commentTextDisplay: {
+    fontSize: 16,
+    color: '#333',
   },
 });
 

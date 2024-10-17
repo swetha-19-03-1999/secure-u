@@ -7,7 +7,7 @@ import SQLite from 'react-native-sqlite-storage';
 const ProfileThanku= ({ route, navigation }) => {
     const { user_profileImage } = route?.params;
     const handleNext = async () => {
-        navigation.navigate('Home'); // Navigate to the NextScreen
+        navigation.navigate('Home', {user_profileImage: user_profileImage}); // Navigate to the NextScreen
       };
     return (
         <View style={styles.container}>

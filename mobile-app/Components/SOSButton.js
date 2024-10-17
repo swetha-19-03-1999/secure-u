@@ -14,7 +14,7 @@ const SOSButton = ({userInfo}) => {
   const [buttonEnabled, setButtonEnabled] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [sosDetails, setSosDetails] = useState({});
-  const [securityNumber, setSecurityNumber] = useState('123-456-7890');
+  const [securityNumber, setSecurityNumber] = useState('+61 456 252 985');
 
   const audioRecorderPlayer = new AudioRecorderPlayer();
 
@@ -79,7 +79,7 @@ const SOSButton = ({userInfo}) => {
           latitude: locations.latitude,
           longitude: locations.longitude,
         };
-        console.log(locations, 'Location Data');
+        
         try {
           const response = await axios.post('http://192.168.1.116:3001/newsosalert', sosData);
           setSosDetails(sosData);
