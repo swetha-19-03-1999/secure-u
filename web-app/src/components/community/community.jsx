@@ -77,7 +77,7 @@ const CommunityPage = () => {
                             )
 
                             ) : <div className="empty-content-cls">
-                                <img className="empty-image" src="https://cdni.iconscout.com/illustration/premium/thumb/no-search-result-illustration-download-in-svg-png-gif-file-formats--results-empty-matches-found-zero-query-ecommerce-states-pack-e-commerce-shopping-illustrations-9741054.png?f=webp" alt="no posts available"/>
+                                {/* <img className="empty-image" src="https://cdni.iconscout.com/illustration/premium/thumb/no-search-result-illustration-download-in-svg-png-gif-file-formats--results-empty-matches-found-zero-query-ecommerce-states-pack-e-commerce-shopping-illustrations-9741054.png?f=webp" alt="no posts available"/> */}
                                 <h1>No posts found</h1>
                             </div>
                         }

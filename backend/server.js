@@ -553,6 +553,7 @@ app.get('/newsposts', async (req, res) => {
 // Like a news post
 app.post('/like', async (req, res) => {
     const { user_id, news_id } = req.body;
+    console.log(user_id, news_id)
     try {
         const [rows] = await db.execute(
             'SELECT * FROM likes WHERE user_id = ? AND news_id = ?',

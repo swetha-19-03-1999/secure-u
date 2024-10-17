@@ -12,7 +12,7 @@ const WellbeingComponent = ({route}) => {
                 <View style={styles.banner}>
                     <Text style={styles.header}>Mental Health and Wellbeing</Text>
                 </View>
-                <View style={styles.textcontainer}>
+                {/* <View style={styles.textcontainer}>
                     <Text style={styles.articleText}>
                         Mental health, often overshadowed by its physical counterpart, is an integral component of overall well-being.
                         It encompasses our emotional, psychological, and social states, influencing how we think, feel, and interact with the world. 
@@ -35,7 +35,7 @@ const WellbeingComponent = ({route}) => {
                         Early intervention and prevention are crucial in addressing mental health challenges. 
                         By promoting mental well-being and providing support systems, we can reduce the incidence and severity of mental health disorders.
                     </Text>
-                </View>
+                </View> */}
 
                 <Text style={styles.sectionTitle}>Wellbeing Resources</Text>
 
