@@ -159,7 +159,7 @@ export default function NewsCard(props) {
                     image={"http://localhost:3001/" + news_image}
                     alt={news_title}
                 />
-                <div
+                {/* <div
                     style={{ width: "100%", marginTop: 10, cursor: "pointer" }}
                 >
                     <Stack direction="row" spacing={3}>
@@ -169,7 +169,7 @@ export default function NewsCard(props) {
                         <CommentIcon />
                         <SendIcon />
                     </Stack>
-                </div>
+                </div> */}
             </div>
             <CardContent>
                 <Typography>{news_title}</Typography>
