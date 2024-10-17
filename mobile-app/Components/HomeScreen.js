@@ -12,7 +12,7 @@ const HomeScreen = ({route, navigation}) => {
   return (
     <View style={styles.container}>
       <HeaderComponent user_profileImage={profileImage}/>
-      <HomePage/>
+      <HomePage />
       {/* <SOSButton/> */}
       {/* <ReportIncidentButton/> */}
       <BottomNavigation user_profileImage={profileImage} />

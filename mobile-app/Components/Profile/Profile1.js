@@ -19,47 +19,90 @@ const ProfileDetails1 = ({ route,navigation }) => {
     const [userDetails, setUserDetails] = useState([]);
     const [error, setError] = useState(null);
     const [imageUri, setImageUri] = useState(null);
+    const [userId, setUserId] = useState(null);
     const [modalVisible, setModalVisible] = useState(false); // State for modal visibility
-
 
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
+                // Open the SQLite database
                 const db = SQLite.openDatabase({ name: 'mydb.db', location: 'default' });
 
-                db.transaction(tx => {
-                    console.log("hhhh1")
-
-                    tx.executeSql('SELECT * FROM users', [], (tx, results) => {
-                        const rows = results.rows;
-                        
-
-                        for (let i = 0; i < rows.length; i++) {
-                            userIds=rows.item(i).user_id;
-                            console.log("data getting :: "+rows.item(i));
-                            setUserId(rows.item(i).user_id);
-                        }
+                // Wait for the userId to be fetched
+                const userIdFromDb = await new Promise((resolve, reject) => {
+                    db.transaction(tx => {
+                        tx.executeSql('SELECT * FROM users', [], (tx, results) => {
+                            const rows = results.rows;
+                            if (rows.length > 0) {
+                                const userIdFromDb = rows.item(0).user_id; // Assuming first item is the target
+                                console.log("User ID from DB: ", userIdFromDb);
+                                resolve(userIdFromDb); // Resolve the userId
+                            } else {
+                                reject(new Error('No user found in the database'));
+                            }
+                        });
                     });
                 });
 
-                 const url=`http://192.168.1.116:3001/profilebyid/${userIds}`
-                 console.log("user url :: "+url)
-                const response = await axios.get(`http://192.168.1.116:3001/profilebyid/${userIds}`);
+                // Set the userId in the state
+                setUserId(userIdFromDb);
+
+                // Now make the axios call with the userId
+                const url = `http://192.168.1.116:3001/profilebyid/${userIdFromDb}`;
+                const response = await axios.get(url);
+
+                // Set user details from the API response
                 setUserDetails(response.data[0]);
-             if(response.data[0].user_university_name!=''){
+                console.log(response.data[0], 'profile data');
 
-          // navigation.replace("Home")
-             }
-               
-
+                // Optionally, if you need to navigate based on the user details
+                if (response.data[0]?.user_university_name) {
+                    // navigation.replace("Home");
+                    console.log('Navigating to Home screen...');
+                }
 
             } catch (error) {
+                console.error('Error fetching user details:', error);
                 setError(error);
             }
         };
 
+        // Call the async function to fetch user details
         fetchUserDetails();
-    }, []);
+    }, []); // Empty dependency array to run on first load
+
+    // useEffect(() => {
+    //     const fetchUserDetails = async () => {
+    //         try {
+    //             const db = SQLite.openDatabase({ name: 'mydb.db', location: 'default' });
+
+    //             db.transaction(tx => {
+    //                 tx.executeSql('SELECT * FROM users', [], (tx, results) => {
+    //                     const rows = results.rows;
+    //                     for (let i = 0; i < rows.length; i++) {
+    //                         userIds=rows.item(i).user_id;
+    //                         console.log("data getting :: "+rows.item(i));
+    //                         setUserId(rows.item(i).user_id);
+    //                     }
+    //                 });
+    //             });
+    //              const url=`http://192.168.1.116:3001/profilebyid/${userIds}`
+    //             const response = await axios.get(`http://192.168.1.116:3001/profilebyid/${userIds}`);
+    //             setUserDetails(response.data[0]);
+    //             console.log(response.data[0],'profilllee')
+    //          if(response.data[0].user_university_name!=''){
+    //       // navigation.replace("Home")
+    //          }
+               
+
+
+    //         } catch (error) {
+    //             setError(error);
+    //         }
+    //     };
+
+    //     fetchUserDetails();
+    // }, []);
 
     const handleChange = (name, value) => {
         // Update formData only if value is not empty
@@ -167,6 +210,7 @@ const ProfileDetails1 = ({ route,navigation }) => {
     return (
         <View style={styles.container}>
             <HeaderComponent user_profileImage={user_profileImage} />
+            {userDetails ? (
             <ScrollView>
                 <Text style={styles.header}>Profile</Text>
                 <View style={styles.inputContainer}>
@@ -227,7 +271,10 @@ const ProfileDetails1 = ({ route,navigation }) => {
                 </View>
                 <BottomNavigation user_profileImage={user_profileImage} />
             </ScrollView>
-
+            ) : (
+                <Text>Loading user details...</Text>
+            )
+        }
             {/* Modal for Image Upload Options */}
             <Modal
                 transparent={true}

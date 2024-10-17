@@ -34,7 +34,11 @@ const LoginScreen = ({ navigation }) => {
                         });
                     });
                     Alert.alert('Success', 'Login successful');
-                    navigation.navigate('Profile', { userId: response.data[0].user_id, user_profileImage: response.data[0].user_profile_pic });
+                    if(response.data[0]?.user_profile_pic){
+                        navigation.navigate('Home', { user_profileImage: response.data[0].user_profile_pic })
+                    }else{
+                        navigation.navigate('Profile', { userId: response.data[0].user_id, user_profileImage: response.data[0].user_profile_pic });
+                    }
                 } else {
                     Alert.alert('Error', 'Invalid credentials');
                 }

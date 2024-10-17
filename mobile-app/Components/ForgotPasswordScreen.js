@@ -44,7 +44,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 style={styles.button}
                 onPress={handleForgotPassword}
             >
-                <Text style={styles.buttonText}>Send Reset Link</Text>
+                <Text style={styles.buttonText} onPress={()=>navigation.navigate('Login')}>Send Reset Link</Text>
             </TouchableOpacity>
         </View>
     );
