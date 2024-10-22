@@ -119,7 +119,7 @@ export default function NewsCard(props) {
                         name={user_names}
                         image={user_img}
                     >
-                        {user_names[0]}
+                        {user_names?.[0]}
                     </AvatarImg>
                 }
                 action={
@@ -248,7 +248,7 @@ export default function NewsCard(props) {
                                                             name={un}
                                                             image={ui}
                                                         >
-                                                            {user_names[0]}
+                                                            {user_names?.[0]}
                                                         </AvatarImg>
                                                     </div>
                                                     <div style={{ flex: 1 }}>

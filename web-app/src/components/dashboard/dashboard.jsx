@@ -152,11 +152,16 @@ const DashBoardComponent = () => {
             axios
                 .get("http://localhost:3001/security-alerts")
                 .then((res) => {
+                    console.log(">>>>>>>>>>>>", JSON.parse(JSON.stringify(res.data)))
+                    setApiStatus(apiSatusCodes.SUCCESS);
                     if (Array.isArray(res.data)) {
-                        const newAlerts = res.data;
-                        if (newAlerts.length > previousAlertsLength) {
-                            navigate("/home");
-                        }
+                        setAlerts(res.data.reverse());
+                        localStorage.setItem(
+                            "secure_alerts_length",
+                            res.data.length
+                        );
+                    } else {
+                        setAlerts([]);
                     }
                 })
                 .catch((e) => {
@@ -165,7 +170,7 @@ const DashBoardComponent = () => {
                 });
         };
 
-        const intervalId = setInterval(fetchAlerts, 10000); // Fetch every 10 seconds
+        const intervalId = setInterval(fetchAlerts, 5000); // Fetch every 10 seconds
 
         return () => {
             clearInterval(intervalId);
