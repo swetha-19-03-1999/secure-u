@@ -71,9 +71,9 @@ const incident = getIncidentDetails(incident_mode);
                           sx={{ color: "text.secondary" }}
                           style={{ textTransform: "capitalize" }}
                       >
-                          Security Assigned: {assigned_first_name +
+                          Security Assigned: {assigned_first_name+assigned_last_name ? assigned_first_name +
                                         " " +
-                                        assigned_last_name}
+                                        assigned_last_name : "N/A"}
                       </Typography>
                       <Typography
                           variant="body1"

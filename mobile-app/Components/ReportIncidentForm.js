@@ -85,7 +85,7 @@ const IncidentReportScreen = () => {
 
         const formData2 = new FormData();
 
-        formData2.append( "user_id",userIds)
+        formData2.append( "user_id",user_id)
             formData2.append("user_name",user_name)
             formData2.append("incident_mode",incident_mode)
            formData2.append("description",description)

@@ -18,6 +18,7 @@ import SafeZoneDetails from "./components/safezonedetails/safezone";
 import AddNewSafeZone from "./components/safezonedetails/addSafeZone";
 import MyProfileAlerts from "./components/profile/myprofilealerts";
 import ForgetPassword from "./components/login/ForgetPassword";
+import CompletedAlerts from "./components/profile/CompletedAlerts";
 function App() {
     return (
         <BrowserRouter>
@@ -35,6 +36,10 @@ function App() {
                     <Route
                         path="myalerts"
                         element={<MyProfileAlerts />}
+                    ></Route>
+                    <Route
+                        path="completedalerts"
+                        element={<CompletedAlerts />}
                     ></Route>
                     {/* <Route path='profile' element={<ProfileCo mponent />}></Route> */}
                     <Route

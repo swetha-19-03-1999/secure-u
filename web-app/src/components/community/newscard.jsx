@@ -36,7 +36,7 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function NewsCard(props) {
-    const { newsDetails } = props;
+    const { newsDetails, fetchNews } = props;
     const {
         news_id,
         user_id,
@@ -97,6 +97,16 @@ export default function NewsCard(props) {
         // })
     };
 
+    const handleDelete = () => {
+        handleClose();
+        axios.delete("http://localhost:3001/delete-news/"+news_id).then(res => {
+            fetchNews();
+        }
+        ).catch(e => {
+            console.log(e);
+        })
+    };
+
     return (
         // <Card sx={{ maxWidth: 345 }}>
         <Card className="paddingcls">
@@ -130,10 +140,10 @@ export default function NewsCard(props) {
                             }}
                         >
                             {/* <MenuItem onClick={handleClose}>Edit Post</MenuItem> */}
-                            <MenuItem onClick={handleClose}>
+                            <MenuItem onClick={handleDelete}>
                                 Delete Post
                             </MenuItem>
-                            <MenuItem onClick={handleClose}>Report</MenuItem>
+                            {/* <MenuItem onClick={handleClose}>Report</MenuItem> */}
                         </Menu>
                     </IconButton>
                 }

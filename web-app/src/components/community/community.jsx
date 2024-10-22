@@ -16,16 +16,16 @@ const CommunityPage = () => {
         setUpdateUI(prev=>!prev)
     }
     
-    useEffect(() => {
-        const fetchNews = () => {
-            axios.get("http://localhost:3001/news").then((res) => {
-    
-                setNewsList(res.data?.reverse())
-            }).catch(e => {
-                console.log(e)
-            })
-        };
+    const fetchNews = () => {
+        axios.get("http://localhost:3001/news").then((res) => {
 
+            setNewsList(res.data?.reverse())
+        }).catch(e => {
+            console.log(e)
+        })
+    };
+
+    useEffect(() => {
         axios.get(`http://localhost:3001/admin-users/${localStorage.getItem("userid")}`).then((res) => {
 
             setUserName(res.data.user_name)
@@ -70,7 +70,7 @@ const CommunityPage = () => {
                         {newsList.length>0 ?
                             newsList.map(eachItem => (
                                 eachItem.news_type == "IMAGE" ?
-                                    <NewsCard newsDetails={eachItem} /> :
+                                    <NewsCard newsDetails={eachItem} fetchNews={fetchNews} /> :
                                     //    <Grid item  xs={11} sm={10} md={7}  lg={7}>
                                     <ControlledRadioButtonsGroup newsDetails={eachItem} />
                                 //    </Grid>

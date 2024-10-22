@@ -20,6 +20,8 @@ import { TbAlertSquareFilled } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import AvatarImg from "../profile/Avatar";
 import axios from "axios";
+import PeopleIcon from '@mui/icons-material/People';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 
 function SettingComponent({ middleContent }) {
     const navigate = useNavigate();
@@ -129,7 +131,7 @@ function SettingComponent({ middleContent }) {
 
                         <Link to="/community" className="row_1" type="button">
                             <div className="col_1">
-                                <FaRegUserCircle className="side_nav_icon" />
+                                <PeopleIcon className="side_nav_icon" />
                             </div>
 
                             <div className="col_1">
@@ -164,6 +166,16 @@ function SettingComponent({ middleContent }) {
 
                             <div className="col_1">
                                 <p>My Alerts</p>
+                            </div>
+                        </Link>
+                        
+                        <Link to="/completedalerts" className="row_1">
+                            <div className="col_1">
+                                <AddTaskIcon className="side_nav_icon" />
+                            </div>
+
+                            <div className="col_1">
+                                <p>Completed Alerts</p>
                             </div>
                         </Link>
                     </div>
